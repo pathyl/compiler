@@ -1,0 +1,12 @@
+CLASS SIMPLE{
+	VAR A, B, X;
+	GET(A);
+	GET(B);
+	
+	IF(A > B)THEN{
+		PUT(A);	
+	}ELSE{
+		PUT(B);
+	}
+		
+}

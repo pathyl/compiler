@@ -46,10 +46,10 @@ string labelNum;
 char operatorPrecedenceData[] =
     {'0', '<', '0', '<', '0', '0', '<', '0', '0', '0', '0', '0', '>', '0', '<', '0',
      '>', '0', '<', '<', '0', '<', '0', '0', '>', '0', '0', '0', '0', '0', '0', '0',
-     '>', '0', '>', '<', '>', '<', '0', '>', '>', '0', '>', '0', '0', '0', '0', '>',
+     '>', '0', '<', '<', '>', '<', '0', '>', '>', '0', '>', '0', '0', '0', '0', '>',
      '0', '0', '<', '<', '=', '<', '0', '0', '0', '0', '<', '0', '0', '0', '0', '0',
      '>', '0', '>', '0', '>', '>', '0', '0', '>', '0', '0', '0', '0', '0', '0', '0',
-     '>', '0', '>', '<', '>', '>', '0', '>', '>', '0', '>', '0', '0', '0', '0', '>',
+     '>', '0', '>', '<', '>', '<', '0', '>', '>', '0', '>', '0', '0', '0', '0', '>',
      '0', '0', '<', '<', '0', '<', '0', '=', '0', '<', '<', '0', '0', '0', '0', '0',
      '>', '<', '0', '<', '0', '0', '<', '0', '=', '0', '0', '<', '>', '<', '0', '0',
      '>', '<', '0', '<', '0', '0', '<', '0', '>', '0', '0', '<', '>', '<', '0', '0',
@@ -215,7 +215,7 @@ void SyntaxMain()
     vector<Token> popVec;
 
     // deque containing all constructed Tokens from tokenlist in the order they appeared.
-    deque<Token> tokenDeque(1);
+
     string tmp = "    ";
 
     // currentToken stores the latest token grabbed, possibly an operator or non-terminal.
@@ -244,7 +244,10 @@ void SyntaxMain()
     //pop header
     std::getline(tokenList, tmp);
 
-
+    debugInfo.open("debugInfo.txt", fstream::app);
+    deque<Token> tokenDeque;
+    tokenDeque.push_back(popToken);
+    tokenDeque.pop_back();
     while (std::getline(tokenList, tmp, '|'))
     {
         Token newToken;
@@ -252,7 +255,9 @@ void SyntaxMain()
         std::getline(tokenList, tmp, '\n');
         newToken.tokenClass = tmp;
         tokenDeque.push_back(newToken);
+        debugInfo << "dequebuilder pushed:" << newToken.tokenSymbol << "|" << newToken.tokenClass << endl;
     }
+    debugInfo.close();
     //linux adds this empty token for no reason at all!!
     if(tokenDeque.front().tokenClass == ""){
         tokenDeque.pop_front();
@@ -305,14 +310,13 @@ void SyntaxMain()
     while (!tokenDeque.empty())
     {
     SkipWhile:
-    cout << "skipwhile" << endl;
         debugInfo.open("debugInfo.txt", fstream::app);
-        if(tokenDeque.size() > 0){
+        if(!tokenDeque.empty()){
             currentToken = tokenDeque.front();
             tokenDeque.pop_front();
             debugInfo << "Got front & popped:" << currentToken.tokenSymbol << endl;
         }else{
-            if(tokenStack.empty()){
+            if(tokenStack.empty() || tokenStack.top().tokenClass == "$LB"){
                 debugInfo << "Tokenstack empty" << endl;
                 return;
             }
@@ -326,18 +330,16 @@ void SyntaxMain()
         currentNum = currentToken.tokenClassToNum();
         prevOperatorNum = prevOperator.tokenClassToNum();
         cout << "set cur:" << to_string(currentNum) << " prev:" << to_string(prevOperatorNum) << endl;
-
+        cout << "tokenstack empty check outside" << endl;
         if (tokenStack.empty())
-        {
+        {        cout << "tokenstack empty check start" << endl;
             // stack is empty, automatically add a token and set the currentToken to the next one.
-            debugInfo << "Found empty stack, pushing:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
             cout << "empty push:" << currentToken.tokenSymbol << endl;
             while (tokenDeque.front().tokenClass == "<semi>")
             {
                 tokenDeque.pop_front();
             }
-            debugInfo << "New currentToken after empty push:" << tokenDeque.front().tokenSymbol << endl;
             currentToken = tokenDeque.front();
             tokenDeque.pop_front();
 
@@ -350,7 +352,7 @@ void SyntaxMain()
 
             currentNum = currentToken.tokenClassToNum();
         }
-
+        cout << "GETPUT handlers current:" << currentToken.tokenSymbol << ", prevop:" << prevOperator.tokenSymbol << endl;
         // GET/PUT handlers
         if (currentToken.tokenSymbol == "GET")
         {
@@ -370,24 +372,27 @@ void SyntaxMain()
             goto SkipWhile;
         }
         if (currentToken.tokenSymbol == "PUT")
-        {
-            debugInfo << "Found PUT, popping:" << tokenDeque.front().tokenSymbol;
+        {   cout << "inside put no access" << endl;
+            cout << "deqsize:" << to_string(tokenDeque.size()) << endl;
+            cout << "deqfront:" << tokenDeque.front().tokenSymbol << "," << tokenDeque.front().tokenClass << endl;;
+
+            //cout << "Found PUT, popping:" << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop (
             outputQuads.open("quads.txt", fstream::app);
             outputQuads << "PUT"
                         << "," << tokenDeque.front().tokenSymbol << ",null,null" << endl;
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
+            cout << " " << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop var
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
+            cout << " " << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop )
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
+            cout << " " << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop ;
             outputQuads.close();
             debugInfo.close();
             goto SkipWhile;
         }
         if (currentNum == -1)
-        { 
+        {   cout << "start Notoperator" << endl;
             //-1 means it is not an operator, push into stack and do not bother checking precedence.
             debugInfo << "Inside NotOperator if, pushing nonoperator into PDA:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
@@ -490,10 +495,31 @@ void SyntaxMain()
                 if(tokenStack.top().tokenSymbol[0] == 'T'){
                     //this is a T var that was pushed, we need to save and get the operator
                     tempToken = tokenStack.top();
+                    //pop T var
                     tokenStack.pop();
+                    //pop $LP
                     tokenStack.pop();
+
                     prevOperator = tokenStack.top();
                     cout << "T var handler prevOP:" << prevOperator.tokenSymbol << endl;
+                    cout << "T var currentToken:" << currentToken.tokenSymbol << endl; 
+                    //if currentToken is an operator other than $LP, then we still have things to do, if prevOperator is an operator other than (, we have things to do in that direction.
+                    int i = currentToken.tokenClassToNum();
+                    if(i != -1 && i != 3){
+                        //push T var
+                        cout << "pushing T var, another op inside LPRP" << endl;
+                        tokenStack.push(tempToken);
+
+                        //avoid clearing currentToken which still needs to be performed.
+
+                        if(currentToken.tokenClass == "$RP"){
+                            //next is $RP
+                            cout << "going to SkipWhile currentToken:" << currentToken.tokenSymbol << ", num:" << to_string(i) << endl;
+                            goto SkipWhile;
+                        }
+                        cout << "going to checkafterquad" << endl;
+                        goto checkAfterQuadGen;
+                    }
                     tokenStack.push(tempToken);
                     cout << "T var handler, new prev:" << prevOperator.tokenSymbol << endl;
                     cout << "T var top:" << tokenStack.top().tokenSymbol << endl;

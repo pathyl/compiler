@@ -1,23 +1,23 @@
 CLASS NESTED{
-	CONST N = 2;
-	VAR A, B, X, Y;
+	VAR A, B, C;
 	GET(A);
 	GET(B);
+	GET(C);
 	
 	IF(A > B)THEN{
-		X = 10;
-		IF(X > A)THEN{
-			Y = 10;
+		IF(A > C)THEN{
+			PUT(A);
 		}ELSE{
-			Y = 20;
+			PUT(C);
 		}
 	}ELSE{
-		X = 100;
-		Y = 100;
+		IF(B > C)THEN{
+			PUT(B);
+		}ELSE{
+			PUT(C);
+		}
+
 	}
 
-	PUT(X);
-	PUT(Y);
-	
 		
 }

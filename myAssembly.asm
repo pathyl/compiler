@@ -48,9 +48,9 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
-	lit3	DW	3
-	lit1	DW	1
-	N	DW	5
+	lit4	DW	4
+	lit2	DW	2
+	lit10	DW	10
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -74,49 +74,64 @@ section	.bss		;used to declare uninitialized variables
 	global _start   ;main program
 
 ;Begin adding vars
-	Y	RESW	1
-	X	RESW	1
-	B	RESW	1
-	A	RESW	1
+	ans	RESW	1
+	Jane	RESW	1
+	Bob	RESW	1
+	c	RESW	1
+	b	RESW	1
+	a	RESW	1
 section .text
 _start:	nop
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [A], ax
+	mov [a], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [B], ax
-	mov ax, [N]
-	sub ax, [lit1]
+	mov [b], ax
+	call PrintString
+	call GetAnInteger
+	mov ax,[ReadInt]
+	mov [c], ax
+	call PrintString
+	call GetAnInteger
+	mov ax,[ReadInt]
+	mov [Bob], ax
+	call PrintString
+	call GetAnInteger
+	mov ax,[ReadInt]
+	mov [Jane], ax
+	mov ax, [Jane]
+	sub ax, [lit10]
 	mov [T1], ax
-	mov ax, [B]
-	mov bx, [T1]
-	mul bx
+	mov ax, [Bob]
+	add ax, [T1]
 	mov [T2], ax
-	mov ax, [A]
-	add ax, [T2]
+	mov ax, [lit2]
+	mov bx, [lit4]
+	mul bx
 	mov [T3], ax
-	mov ax, [T3]
-	mov [X], ax
-	mov ax, [N]
-	sub ax, [lit3]
+	mov dx, 0
+	mov ax, [T2]
+	mov bx, [T3]
+	div bx
+	mov [T4], ax
+	mov ax, [b]
+	add ax, [c]
 	mov [T5], ax
 	mov dx, 0
-	mov ax, [B]
+	mov ax, [T4]
 	mov bx, [T5]
 	div bx
 	mov [T6], ax
-	mov ax, [A]
-	sub ax, [T6]
+	mov ax, [a]
+	mov bx, [T6]
+	mul bx
 	mov [T7], ax
 	mov ax, [T7]
-	mov [Y], ax
-	mov ax, [X]
-	call ConvertIntegerToString
-	call PutInteger
-	mov ax, [Y]
+	mov [ans], ax
+	mov ax, [ans]
 	call ConvertIntegerToString
 	call PutInteger
 ;**************************
