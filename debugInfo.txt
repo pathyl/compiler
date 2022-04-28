@@ -35,8 +35,7 @@ Found CONST/VAR line:$VAR <var> <semi>
 Deleting from:$VAR to <semi>
 Full line to erase:VAR X ; 
 Got front & popped:{
-Found GET, popping:( X ) ;Got front & popped:X
-Inside NotOperator if, pushing nonoperator into PDA:X
+Got front & popped:X
 Entering generateQuads, popVec contains:8,/,X,
 Finished generateQuads, prevOperator set:=
 genQuads returned a Temp,T1 pushing into stack

@@ -590,7 +590,6 @@ void SyntaxMain(){
                 startWhileStack.push(tmp);
                 Wvar++;
             }
-            cout << "yields pushing:" << currentToken.tokenSymbol << "," << currentToken.tokenClass << endl;
             tokenStack.push(currentToken);
             prevOperator = tokenStack.top();
             prevOperatorNum = prevOperator.tokenClassToNum();
