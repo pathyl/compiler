@@ -26,13 +26,10 @@ public:
     string tokenClass;
 
     // takes a token and returns the row or col num it corresponds to in our operator precedence table.
-    int tokenClassToNum()
-    {
+    int tokenClassToNum(){
         string tmpClass = tokenClass;
-        for (int i = 0; i < OPERATORS_SIZE; i++)
-        {
-            if (OPERATORS[i] == tmpClass)
-            {
+        for (int i = 0; i < OPERATORS_SIZE; i++){
+            if (OPERATORS[i] == tmpClass){
                 return i;
             }
         }
@@ -62,8 +59,7 @@ char operatorPrecedenceData[] =
      '>', '<', '0', '<', '0', '0', '0', '0', '0', '0', '0', '<', '>', '<', '<', '0'};
 char operatorPrecedenceTable[PREC_TABLE_ROWS][PREC_TABLE_COLS];
 
-Token generateQuads(vector<Token> popVec)
-{
+Token generateQuads(vector<Token> popVec){
     // take a vector of tokens containing the terminals and non-terminals in reverse order. Return a token with T <var> to be placed in the stack.
     Token opQuad;
     Token quad2;
@@ -73,20 +69,16 @@ Token generateQuads(vector<Token> popVec)
     // quad 4 is usually a T var that must be returned to enter the PDA
     debugInfo.open("debugInfo.txt", fstream::app);
     debugInfo << "Entering generateQuads, popVec contains:";
-    for (auto i : popVec)
-    {
+    for (auto i : popVec){
         debugInfo << i.tokenSymbol << ",";
     }
     debugInfo << endl;
     // determine the operator
-    for (auto i : popVec)
-    {
+    for (auto i : popVec){
         int opCode = i.tokenClassToNum();
-        if (opCode != -1)
-        {
+        if (opCode != -1){
             // found an operator.
-            switch (opCode)
-            {
+            switch (opCode){
             case 0: // semi - error
                 break;
             case 1: // assign vector should be [input] = [receive]. quad is =, [receive], [input], -
@@ -101,8 +93,7 @@ Token generateQuads(vector<Token> popVec)
                 break;
             case 2: // addop - check for unary + and unary -
                 // binary + for A + B
-                if (popVec.size() == 3)
-                {
+                if (popVec.size() == 3){
                     // quad +, A, B, T1, vector should contain B, +, A. Similar for -
                     opQuad = popVec.at(1);
                     quad2 = popVec.at(2);
@@ -113,17 +104,14 @@ Token generateQuads(vector<Token> popVec)
                     outputQuads << opQuad.tokenSymbol << "," << quad2.tokenSymbol << "," << quad3.tokenSymbol << "," << quad4.tokenSymbol << endl;
                     outputQuads.close();
                 }
-                else
-                {
+                else{
                     // unary + or -, vector should contain A, -
                     opQuad = popVec.at(1);
-                    if (opQuad.tokenSymbol == "+")
-                    {
+                    if (opQuad.tokenSymbol == "+"){
                         // throw quad away, return the var to be pushed back onto stack instead of T
                         return popVec.at(0);
                     }
-                    else
-                    {
+                    else{
                         // unary -.    -,0,A,T1, so that 0-A gives us -A
                         opQuad = popVec.at(1);
                         quad2.tokenClass = "<var>";
@@ -186,24 +174,21 @@ Token generateQuads(vector<Token> popVec)
                 break;
             case 15: // DO
                 break;
-            default:
+            default: //no error here - the tokenClassToNum will be -1 for non operators
                 break;
-
             }
         }
     }
     // We only want to use 8 Temp variables.
     Tvar++;
-    if (Tvar > 9)
-    {
+    if (Tvar > 9){
         Tvar = 1;
     }
     debugInfo.close();
     return quad4;
 }
 
-void SyntaxMain()
-{
+void SyntaxMain(){
     // read in the tokenlist produced by the scanner and put all tokens and their class in order inside a vector so we can iterate through them easily.
     fstream tokenList;
     tokenList.open("tokenlist.txt", fstream::in);
@@ -232,10 +217,8 @@ void SyntaxMain()
     stack<string> endStack;
     stack<string> startWhileStack;
     // initialize the 2d operator precedence matrix
-    for (int row = 0; row < PREC_TABLE_ROWS; row++)
-    {
-        for (int col = 0; col < PREC_TABLE_COLS; col++)
-        {
+    for (int row = 0; row < PREC_TABLE_ROWS; row++){
+        for (int col = 0; col < PREC_TABLE_COLS; col++){
             operatorPrecedenceTable[row][col] = operatorPrecedenceData[row * PREC_TABLE_COLS + col];
         }
     }
@@ -248,8 +231,7 @@ void SyntaxMain()
     deque<Token> tokenDeque;
     tokenDeque.push_back(popToken);
     tokenDeque.pop_back();
-    while (std::getline(tokenList, tmp, '|'))
-    {
+    while (std::getline(tokenList, tmp, '|')){
         Token newToken;
         newToken.tokenSymbol = tmp;
         std::getline(tokenList, tmp, '\n');
@@ -264,8 +246,7 @@ void SyntaxMain()
     }
     debugInfo.open("debugInfo.txt", fstream::app);
     // clear out all CONST & VAR declarations and the initial CLASS PGM{ and final } from PGM
-    if (tokenDeque.front().tokenSymbol == "CLASS")
-    {
+    if (tokenDeque.front().tokenSymbol == "CLASS"){
         debugInfo << "Popping Class:" << tokenDeque.front().tokenClass << endl;
         tokenDeque.pop_front(); // pop CLASS
         debugInfo << "Popping Class2:" << tokenDeque.front().tokenSymbol << endl;
@@ -274,16 +255,13 @@ void SyntaxMain()
 
 
     // erase CONST ---------; and VAR ---------; these are already put into the symbol table during lexical analysis.
-    for (int i = 0; i < tokenDeque.size(); i++)
-    {
+    for (int i = 0; i < tokenDeque.size(); i++){
 
-        if (tokenDeque.at(i).tokenClass == "$CONST" || tokenDeque.at(i).tokenClass == "$VAR")
-        {
+        if (tokenDeque.at(i).tokenClass == "$CONST" || tokenDeque.at(i).tokenClass == "$VAR"){
             debugInfo << "Found CONST/VAR line:" << tokenDeque.at(i).tokenClass << " ";
             bool foundSemi = false;
             int k = i;
-            while (!foundSemi)
-            {
+            while (!foundSemi){
                 k++;
                 debugInfo << tokenDeque.at(k).tokenClass << " ";
                 if (tokenDeque.at(k).tokenClass == "<semi>")
@@ -294,8 +272,7 @@ void SyntaxMain()
             debugInfo << "\n"
                       << "Deleting from:" << tokenDeque.at(i).tokenClass << " to " << tokenDeque.at(k).tokenClass << endl;
             debugInfo << "Full line to erase:";
-            for (int j = i; j <= k; j++)
-            {
+            for (int j = i; j <= k; j++){
                 debugInfo << tokenDeque.at(j).tokenSymbol << " ";
             }
             debugInfo << endl;
@@ -307,9 +284,8 @@ void SyntaxMain()
     debugInfo.close();
     int currentNum;
     int prevOperatorNum;
-    while (!tokenDeque.empty())
-    {
-    SkipWhile:
+    while (!tokenDeque.empty()){
+        SkipWhile:
         debugInfo.open("debugInfo.txt", fstream::app);
         if(!tokenDeque.empty()){
             currentToken = tokenDeque.front();
@@ -328,20 +304,18 @@ void SyntaxMain()
     checkAfterQuadGen:
         currentNum = currentToken.tokenClassToNum();
         prevOperatorNum = prevOperator.tokenClassToNum();
-        if (tokenStack.empty())
-        {        cout << "tokenstack empty check start" << endl;
+        if (tokenStack.empty()){
+            cout << "tokenstack empty check start" << endl;
             // stack is empty, automatically add a token and set the currentToken to the next one.
             tokenStack.push(currentToken);
-            while (tokenDeque.front().tokenClass == "<semi>")
-            {
+            while (tokenDeque.front().tokenClass == "<semi>"){
                 tokenDeque.pop_front();
             }
             currentToken = tokenDeque.front();
             tokenDeque.pop_front();
 
             // if the current token was an operator, set prevOperatorNum to currentNum before recalculating currentNum
-            if (currentNum != -1)
-            {
+            if (currentNum != -1){
                 // the current token is an operator.
                 prevOperatorNum = currentNum;
             }
@@ -349,8 +323,7 @@ void SyntaxMain()
             currentNum = currentToken.tokenClassToNum();
         }
         // GET/PUT handlers
-        if (currentToken.tokenSymbol == "GET")
-        {
+        if (currentToken.tokenSymbol == "GET"){
             debugInfo << "Found GET, popping:" << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop (
             outputQuads.open("quads.txt", fstream::app);
@@ -366,8 +339,7 @@ void SyntaxMain()
             debugInfo.close();
             goto SkipWhile;
         }
-        if (currentToken.tokenSymbol == "PUT")
-        { 
+        if (currentToken.tokenSymbol == "PUT"){ 
             //cout << "Found PUT, popping:" << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop (
             outputQuads.open("quads.txt", fstream::app);
@@ -380,15 +352,14 @@ void SyntaxMain()
             debugInfo.close();
             goto SkipWhile;
         }
-        if (currentNum == -1)
-        {
+        if (currentNum == -1){
             //-1 means it is not an operator, push into stack and do not bother checking precedence.
             debugInfo << "Inside NotOperator if, pushing nonoperator into PDA:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
             goto SkipWhile;
         }
-        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '>')
-        { debugInfo.open("debugInfo.txt", fstream::app);
+        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '>'){   
+            debugInfo.open("debugInfo.txt", fstream::app);
             // compare the previous operator to the next(current) and use the precedence table to determine what to do.
             debugInfo << "Inside >, prevOperatorNum:" << to_string(prevOperatorNum) << ", currentNum:" << to_string(currentNum) << endl;
             // found the end of the prime phrase. Back up and pop, then send to our quad generator.
@@ -403,8 +374,7 @@ void SyntaxMain()
                 //set this up to handle IFTHEN instead of IFTHENELSE, currently need full IFTHENELSE
             }else{
                 //handler for normal arithmetic & relational operators.
-                while (popToken.tokenClassToNum() == -1 || opCount < 1)
-                {
+                while (popToken.tokenClassToNum() == -1 || opCount < 1){
                     debugInfo << "Building popVector for quads" << endl;
                     if (popToken.tokenClassToNum() != -1)
                     {// We've encountered our prevOperator. This is the only operator we must allow in.
@@ -424,8 +394,7 @@ void SyntaxMain()
                 tempToken = generateQuads(popVec);
                 popVec.clear();
                 debugInfo.open("debugInfo.txt", fstream::app);
-                while (tokenStack.top().tokenSymbol == ";")
-                {
+                while (tokenStack.top().tokenSymbol == ";"){
                     tokenStack.pop();
                 }
                 debugInfo << "Finished generateQuads, prevOperator set:" << tokenStack.top().tokenSymbol << endl;
@@ -449,14 +418,6 @@ void SyntaxMain()
                     //we have fully completed a statement and need to get rid of the lingering ;
                     goto SkipWhile;
                 }
-                /*
-                if(currentToken.tokenSymbol == ";" && prevOperator.tokenClass == "$THEN"){
-                    
-                    currentToken = tokenDeque.front();
-                    tokenDeque.pop_front();
-                    debugInfo << "Popped the ; after generating quads." << endl;
-                    goto SkipWhile;
-                }*/
                 goto checkAfterQuadGen;
             }
 
@@ -482,7 +443,6 @@ void SyntaxMain()
                     if(i != -1 && i != 3){
                         //push T var
                         tokenStack.push(tempToken);
-
                         //avoid clearing currentToken which still needs to be performed.
                         if(currentToken.tokenClass == "$RP"){
                             //next is $RP
@@ -530,23 +490,20 @@ void SyntaxMain()
                         outputQuads.close();
                     }
 
-                    // Do this after code generation is working. Otherwise just force an empty ELSE{} on every IFTHEN
-                if(prevOperator.tokenClass == "$THEN" && tokenDeque.front().tokenClass != "$ELSE"){
                     //We have popped the {---} after THEN and there is no ELSE lined up.
-                    outputQuads.open("quads.txt", fstream::app);
-                    string x = fixUpStack.top();
-                    outputQuads << "<label>"
-                            << ",_"
-                            << x
-                            << ",null,null"
-                            << endl;
-                    fixUpStack.pop();
-                    outputQuads.close();
-                }
+                    if(prevOperator.tokenClass == "$THEN" && tokenDeque.front().tokenClass != "$ELSE"){
+                        outputQuads.open("quads.txt", fstream::app);
+                        string x = fixUpStack.top();
+                        outputQuads << "<label>"
+                                << ",_"
+                                << x
+                                << ",null,null"
+                                << endl;
+                        fixUpStack.pop();
+                        outputQuads.close();
+                    }
                     goto SkipWhile;                                                                                                 
                 }
-
-                
 
                 if(currentToken.tokenClass == "$RB" && prevOperator.tokenClass == "$DO"){
                     //We have popped the {---} after DO and need to place jmp W# then jmp E#
@@ -592,11 +549,9 @@ void SyntaxMain()
             {
                 // when this happens we have popped the {---} after THEN and need to generate the label for the ELSE.
                 //ELSE is being pushed into the stack
-      
                 tokenStack.push(currentToken);
                 prevOperator = tokenStack.top();
                 prevOperatorNum = prevOperator.tokenClassToNum();
-
                 outputQuads.open("quads.txt", fstream::app);
                 labelNum = to_string(Evar);
                 // label quad form will be <label>, E1, null, null
@@ -608,7 +563,6 @@ void SyntaxMain()
                 tmp = "E" + labelNum;
                 endStack.push(tmp);
                 Evar++;
-
                 //pop fix-up stack and make L#: nop
                 //Do this as we push ELSE into the stack.
                  tmp = fixUpStack.top();
@@ -676,12 +630,11 @@ void SyntaxMain()
                 currentToken = tokenDeque.front();
                 tokenDeque.pop_front();
             }
-            debugInfo << "Entered the no precedence else. This should be an error." << endl;
             debugInfo << "No precedence between CurrentToken:" << currentToken.tokenSymbol << " prevOperator:" << prevOperator.tokenSymbol << endl;
+            cout << "No precedence between CurrentToken:" << currentToken.tokenSymbol << " prevOperator:" << prevOperator.tokenSymbol << endl;
         }
 
-        if (currentNum != -1)
-        {
+        if (currentNum != -1){
             // if the current token was an operator, place it in prevOperator before while loop clears it next round
             prevOperator = currentToken;
         }
