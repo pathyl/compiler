@@ -1,11 +1,6 @@
 Num|Symbol|Class|Value|Address|Segment
-0|PGM1|<program name>|?|?|CS
-1|a|<var>|?|0|DS
-2|b|<var>|?|2|DS
-3|c|<var>|?|4|DS
-4|Bob|<var>|?|6|DS
-5|Jane|<var>|?|8|DS
-6|ans|<var>|?|10|DS
-7|10|$NUMLIT|10|12|DS
-8|2|$NUMLIT|2|14|DS
-9|4|$NUMLIT|4|16|DS
+0|FACTORIAL|<program name>|?|?|CS
+1|X|<var>|?|0|DS
+2|N|<var>|?|2|DS
+3|fact|<var>|?|4|DS
+4|1|$NUMLIT|1|6|DS

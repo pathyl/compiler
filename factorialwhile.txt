@@ -1,0 +1,13 @@
+CLASS FACTORIAL{
+	VAR X, N, fact;
+	N = 1;
+	GET(X);
+	fact = X;
+	WHILE(N < fact)DO{
+		X = X * N;
+		N = N + 1;
+	}
+	
+	PUT(X);
+		
+}

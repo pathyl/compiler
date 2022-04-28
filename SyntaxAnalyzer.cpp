@@ -585,14 +585,19 @@ void SyntaxMain()
                 if(currentToken.tokenClass == "$RB" && prevOperator.tokenClass == "$DO"){
                     //We have popped the {---} after DO and need to place jmp W# then jmp E#
                     //We also need to pop the WHILE DO 
+                    cout << "RBDO" << endl;
                     outputQuads.open("quads.txt", fstream::app);
                         outputQuads << "jmp,_" << startWhileStack.top() << ",null,null" << endl;
                         startWhileStack.pop();
                         outputQuads << "<label>,_" << endStack.top() << ",null,null" << endl;
                         endStack.pop();
                     outputQuads.close();
+                    cout << "RBDO pop:" << tokenStack.top().tokenSymbol << endl;
                     tokenStack.pop();
+                    cout << "RBDO pop:" << tokenStack.top().tokenSymbol << endl;
                     tokenStack.pop();
+                    cout << "RBDO prevOp:" << tokenStack.top().tokenSymbol << endl;
+                    prevOperator = tokenStack.top();
                     goto SkipWhile;
                 }
             }
@@ -658,8 +663,10 @@ void SyntaxMain()
             {
                 // when this happens we have popped the boolean expression for WHILE and need to generate the label to exit WHILE.
                 // jmp E# as DO is placed into the stack
+                cout << "WHILEDO handler pushing:" << currentToken.tokenSymbol << endl;
                 tokenStack.push(currentToken);
                 prevOperator = tokenStack.top();
+                cout << "WHILEDO new prevOp:" << prevOperator.tokenSymbol << endl;
                 prevOperatorNum = prevOperator.tokenClassToNum();
 
                 outputQuads.open("quads.txt", fstream::app);
