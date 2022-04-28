@@ -1,14 +1,3 @@
 GET,A,null,null
 GET,B,null,null
--,A,B,T1
-=,X,T1,null
-+,A,B,T3
-=,Y,T3,null
-*,A,B,T5
-=,Z,T5,null
-/,A,B,T7
-=,F,T7,null
-PUT,X,null,null
-PUT,Y,null,null
-PUT,Z,null,null
-PUT,F,null,null
+-,N,1,T1

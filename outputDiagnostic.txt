@@ -8,14 +8,19 @@ In SymbolTableBuilder, tokenVal:CLASS tokenClass:$CLASS col:0
 In 0, nextState=1 col:0
 14ident token:CLASS Found reserved word
 0Start char:  nextState:0
-0Start char:P nextState:5
-5var token:P char: G nextState:5
-5var token:PG char: M nextState:5
-5var token:PGM char: 1 nextState:5
-5var token:PGM1 char: { nextState:5
-In SymbolTableBuilder, tokenVal:PGM1 tokenClass:<var> col:1
+0Start char:H nextState:5
+5var token:H char: E nextState:5
+5var token:HE char: I nextState:5
+5var token:HEI char: R nextState:5
+5var token:HEIR char: A nextState:5
+5var token:HEIRA char: R nextState:5
+5var token:HEIRAR char: C nextState:5
+5var token:HEIRARC char: H nextState:5
+5var token:HEIRARCH char: Y nextState:5
+5var token:HEIRARCHY char: { nextState:5
+In SymbolTableBuilder, tokenVal:HEIRARCHY tokenClass:<var> col:1
 In 1, nextState=2
-14ident token:PGM1 Found <var>
+14ident token:HEIRARCHY Found <var>
 0Start char:{ nextState:19
 In SymbolTableBuilder, tokenVal:{ tokenClass:$LB col:2
 In 2, nextState=0
@@ -33,24 +38,6 @@ In SymbolTableBuilder, tokenVal:CONST tokenClass:$CONST col:4
 In 0, nextState=3 col:4
 14ident token:CONST Found reserved word
 0Start char:  nextState:0
-0Start char:M nextState:5
-5var token:M char:   nextState:5
-In SymbolTableBuilder, tokenVal:M tokenClass:<var> col:1
-In 3, nextState=4
-14ident token:M Found <var>
-0Start char:  nextState:0
-0Start char:= nextState:1
-1eq token:= char: 
-In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
-In 4, nextState=5
-0Start char:7 nextState:2
-2int token:7 char:,
-In SymbolTableBuilder, tokenVal:7 tokenClass:<integer> col:7
-In 5, nextState=6
-0Start char:, nextState:23
-In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
-In 6, nextState=3
-0Start char:  nextState:0
 0Start char:N nextState:5
 5var token:N char:   nextState:5
 In SymbolTableBuilder, tokenVal:N tokenClass:<var> col:1
@@ -61,11 +48,9 @@ In 3, nextState=4
 1eq token:= char: 
 In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
 In 4, nextState=5
-0Start char:8 nextState:2
-2int token:8 char:5
-2int builder:85
-2int token:85 char:;
-In SymbolTableBuilder, tokenVal:85 tokenClass:<integer> col:7
+0Start char:2 nextState:2
+2int token:2 char:;
+In SymbolTableBuilder, tokenVal:2 tokenClass:<integer> col:7
 In 5, nextState=6
 0Start char:; nextState:24
 In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
@@ -82,42 +67,6 @@ In SymbolTableBuilder, tokenVal:VAR tokenClass:$VAR col:5
 In 0, nextState=7 col:5
 14ident token:VAR Found reserved word
 0Start char:  nextState:0
-0Start char:X nextState:5
-5var token:X char: , nextState:5
-In SymbolTableBuilder, tokenVal:X tokenClass:<var> col:1
-In 7, nextState=8
-14ident token:X Found <var>
-0Start char:, nextState:23
-In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
-In 8, nextState=7
-0Start char:  nextState:0
-0Start char:Y nextState:5
-5var token:Y char: , nextState:5
-In SymbolTableBuilder, tokenVal:Y tokenClass:<var> col:1
-In 7, nextState=8
-14ident token:Y Found <var>
-0Start char:, nextState:23
-In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
-In 8, nextState=7
-0Start char:  nextState:0
-0Start char:Z nextState:5
-5var token:Z char: , nextState:5
-In SymbolTableBuilder, tokenVal:Z tokenClass:<var> col:1
-In 7, nextState=8
-14ident token:Z Found <var>
-0Start char:, nextState:23
-In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
-In 8, nextState=7
-0Start char:  nextState:0
-0Start char:F nextState:5
-5var token:F char: , nextState:5
-In SymbolTableBuilder, tokenVal:F tokenClass:<var> col:1
-In 7, nextState=8
-14ident token:F Found <var>
-0Start char:, nextState:23
-In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
-In 8, nextState=7
-0Start char:  nextState:0
 0Start char:A nextState:5
 5var token:A char: , nextState:5
 In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
@@ -128,10 +77,28 @@ In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
 In 8, nextState=7
 0Start char:  nextState:0
 0Start char:B nextState:5
-5var token:B char: ; nextState:5
+5var token:B char: , nextState:5
 In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
 In 7, nextState=8
 14ident token:B Found <var>
+0Start char:, nextState:23
+In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
+In 8, nextState=7
+0Start char:  nextState:0
+0Start char:X nextState:5
+5var token:X char: , nextState:5
+In SymbolTableBuilder, tokenVal:X tokenClass:<var> col:1
+In 7, nextState=8
+14ident token:X Found <var>
+0Start char:, nextState:23
+In SymbolTableBuilder, tokenVal:, tokenClass:<comma> col:9
+In 8, nextState=7
+0Start char:  nextState:0
+0Start char:Y nextState:5
+5var token:Y char: ; nextState:5
+In SymbolTableBuilder, tokenVal:Y tokenClass:<var> col:1
+In 7, nextState=8
+14ident token:Y Found <var>
 0Start char:; nextState:24
 In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
 In 8, nextState=0
@@ -209,15 +176,40 @@ In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
 In 0, nextState=0 col:1
 14ident token:A Found <var>
 0Start char:  nextState:0
+0Start char:+ nextState:21
+In SymbolTableBuilder, tokenVal:+ tokenClass:<addop> col:11
+In 0, nextState=0 col:11
+0Start char:  nextState:0
+0Start char:B nextState:5
+5var token:B char:   nextState:5
+In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
+In 0, nextState=0 col:1
+14ident token:B Found <var>
+0Start char:  nextState:0
+0Start char:* nextState:12
+In SymbolTableBuilder, tokenVal:* tokenClass:<mop> col:11
+In 0, nextState=0 col:11
+0Start char:  nextState:0
+0Start char:( nextState:17
+In SymbolTableBuilder, tokenVal:( tokenClass:$LP col:11
+In 0, nextState=0 col:11
+0Start char:N nextState:5
+5var token:N char:   nextState:5
+In SymbolTableBuilder, tokenVal:N tokenClass:<var> col:1
+In 0, nextState=0 col:1
+14ident token:N Found <var>
+0Start char:  nextState:0
 0Start char:- nextState:22
 In SymbolTableBuilder, tokenVal:- tokenClass:<addop> col:11
 In 0, nextState=0 col:11
 0Start char:  nextState:0
-0Start char:B nextState:5
-5var token:B char: ; nextState:5
-In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:B Found <var>
+0Start char:1 nextState:2
+2int token:1 char:)
+In SymbolTableBuilder, tokenVal:1 tokenClass:<integer> col:7
+In 0, nextState=0 col:7
+0Start char:) nextState:18
+In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11
+In 0, nextState=0 col:11
 0Start char:; nextState:24
 In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
 In 0, nextState=0 col:8
@@ -235,70 +227,16 @@ In 0, nextState=0 col:1
 1eq token:= char: 
 In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
 In 0, nextState=0 col:6
-0Start char:A nextState:5
-5var token:A char:   nextState:5
-In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:A Found <var>
-0Start char:  nextState:0
-0Start char:+ nextState:21
-In SymbolTableBuilder, tokenVal:+ tokenClass:<addop> col:11
-In 0, nextState=0 col:11
-0Start char:  nextState:0
 0Start char:B nextState:5
-5var token:B char: ; nextState:5
+5var token:B char:   nextState:5
 In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
 In 0, nextState=0 col:1
 14ident token:B Found <var>
-0Start char:; nextState:24
-In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
-In 0, nextState=0 col:8
-0Start char: nextState:0
-0Start char:
- nextState:0
-0Start char:	 nextState:0
-0Start char:Z nextState:5
-5var token:Z char:   nextState:5
-In SymbolTableBuilder, tokenVal:Z tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:Z Found <var>
 0Start char:  nextState:0
-0Start char:= nextState:1
-1eq token:= char: 
-In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
-In 0, nextState=0 col:6
-0Start char:A nextState:5
-5var token:A char:   nextState:5
-In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:A Found <var>
-0Start char:  nextState:0
-0Start char:* nextState:12
-In SymbolTableBuilder, tokenVal:* tokenClass:<mop> col:11
+0Start char:- nextState:22
+In SymbolTableBuilder, tokenVal:- tokenClass:<addop> col:11
 In 0, nextState=0 col:11
 0Start char:  nextState:0
-0Start char:B nextState:5
-5var token:B char: ; nextState:5
-In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:B Found <var>
-0Start char:; nextState:24
-In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
-In 0, nextState=0 col:8
-0Start char: nextState:0
-0Start char:
- nextState:0
-0Start char:	 nextState:0
-0Start char:F nextState:5
-5var token:F char:   nextState:5
-In SymbolTableBuilder, tokenVal:F tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:F Found <var>
-0Start char:  nextState:0
-0Start char:= nextState:1
-1eq token:= char: 
-In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
-In 0, nextState=0 col:6
 0Start char:A nextState:5
 5var token:A char:   nextState:5
 In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
@@ -310,17 +248,29 @@ In 0, nextState=0 col:1
 In SymbolTableBuilder, tokenVal:/ tokenClass:<mop> col:11
 In 0, nextState=0 col:11
 0Start char:  nextState:0
-0Start char:B nextState:5
-5var token:B char: ; nextState:5
-In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
+0Start char:( nextState:17
+In SymbolTableBuilder, tokenVal:( tokenClass:$LP col:11
+In 0, nextState=0 col:11
+0Start char:N nextState:5
+5var token:N char:   nextState:5
+In SymbolTableBuilder, tokenVal:N tokenClass:<var> col:1
 In 0, nextState=0 col:1
-14ident token:B Found <var>
+14ident token:N Found <var>
+0Start char:  nextState:0
+0Start char:+ nextState:21
+In SymbolTableBuilder, tokenVal:+ tokenClass:<addop> col:11
+In 0, nextState=0 col:11
+0Start char:  nextState:0
+0Start char:1 nextState:2
+2int token:1 char:)
+In SymbolTableBuilder, tokenVal:1 tokenClass:<integer> col:7
+In 0, nextState=0 col:7
+0Start char:) nextState:18
+In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11
+In 0, nextState=0 col:11
 0Start char:; nextState:24
 In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
 In 0, nextState=0 col:8
-0Start char: nextState:0
-0Start char:
- nextState:0
 0Start char: nextState:0
 0Start char:
  nextState:0
@@ -365,56 +315,6 @@ In 0, nextState=0 col:11
 In SymbolTableBuilder, tokenVal:Y tokenClass:<var> col:1
 In 0, nextState=0 col:1
 14ident token:Y Found <var>
-0Start char:) nextState:18
-In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11
-In 0, nextState=0 col:11
-0Start char:; nextState:24
-In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
-In 0, nextState=0 col:8
-0Start char: nextState:0
-0Start char:
- nextState:0
-0Start char:	 nextState:0
-0Start char:P nextState:5
-5var token:P char: U nextState:5
-5var token:PU char: T nextState:5
-5var token:PUT char: ( nextState:5
-In SymbolTableBuilder, tokenVal:PUT tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:PUT Found <var>
-0Start char:( nextState:17
-In SymbolTableBuilder, tokenVal:( tokenClass:$LP col:11
-In 0, nextState=0 col:11
-0Start char:Z nextState:5
-5var token:Z char: ) nextState:5
-In SymbolTableBuilder, tokenVal:Z tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:Z Found <var>
-0Start char:) nextState:18
-In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11
-In 0, nextState=0 col:11
-0Start char:; nextState:24
-In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
-In 0, nextState=0 col:8
-0Start char: nextState:0
-0Start char:
- nextState:0
-0Start char:	 nextState:0
-0Start char:P nextState:5
-5var token:P char: U nextState:5
-5var token:PU char: T nextState:5
-5var token:PUT char: ( nextState:5
-In SymbolTableBuilder, tokenVal:PUT tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:PUT Found <var>
-0Start char:( nextState:17
-In SymbolTableBuilder, tokenVal:( tokenClass:$LP col:11
-In 0, nextState=0 col:11
-0Start char:F nextState:5
-5var token:F char: ) nextState:5
-In SymbolTableBuilder, tokenVal:F tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:F Found <var>
 0Start char:) nextState:18
 In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11
 In 0, nextState=0 col:11

@@ -48,8 +48,8 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
-	N	DW	85
-	M	DW	7
+	lit1	DW	1
+	N	DW	2
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -73,12 +73,10 @@ section	.bss		;used to declare uninitialized variables
 	global _start   ;main program
 
 ;Begin adding vars
-	B	RESW	1
-	A	RESW	1
-	F	RESW	1
-	Z	RESW	1
 	Y	RESW	1
 	X	RESW	1
+	B	RESW	1
+	A	RESW	1
 section .text
 _start:	nop
 	call PrintString
@@ -89,39 +87,16 @@ _start:	nop
 	call GetAnInteger
 	mov ax,[ReadInt]
 	mov [B], ax
-	mov ax, [A]
-	sub ax, [B]
+	mov ax, [N]
+	sub ax, [lit1]
 	mov [T1], ax
-	mov ax, [T1]
-	mov [X], ax
-	mov ax, [A]
-	add ax, [B]
-	mov [T3], ax
-	mov ax, [T3]
-	mov [Y], ax
-	mov ax, [A]
-	mov bx, [B]
-	mul bx
-	mov [T5], ax
-	mov ax, [T5]
-	mov [Z], ax
-	mov dx, 0
-	mov ax, [A]
-	mov bx, [B]
-	div bx
-	mov [T7], ax
-	mov ax, [T7]
-	mov [F], ax
+	mov ax, [N]
+	add ax, [lit1]
+	mov [T2], ax
 	mov ax, [X]
 	call ConvertIntegerToString
 	call PutInteger
 	mov ax, [Y]
-	call ConvertIntegerToString
-	call PutInteger
-	mov ax, [Z]
-	call ConvertIntegerToString
-	call PutInteger
-	mov ax, [F]
 	call ConvertIntegerToString
 	call PutInteger
 ;**************************

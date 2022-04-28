@@ -308,13 +308,15 @@ void SyntaxMain()
         if(tokenDeque.size() > 0){
             currentToken = tokenDeque.front();
             tokenDeque.pop_front();
+            debugInfo << "Got front & popped:" << currentToken.tokenSymbol << endl;
         }else{
             if(tokenStack.empty()){
+                debugInfo << "Tokenstack empty" << endl;
                 return;
             }
         }
 
-        debugInfo << "Got front & popped:" << currentToken.tokenSymbol << endl;
+
 
     // we jump here if we popped quads and need to check against the new prevOp
     checkAfterQuadGen:
@@ -384,9 +386,10 @@ void SyntaxMain()
             //-1 means it is not an operator, push into stack and do not bother checking precedence.
             debugInfo << "Inside NotOperator if, pushing nonoperator into PDA:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
+            goto SkipWhile;
         }
         else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '>')
-        {
+        { debugInfo.open("debugInfo.txt", fstream::app);
             // compare the previous operator to the next(current) and use the precedence table to determine what to do.
             debugInfo << "Inside >, prevOperatorNum:" << to_string(prevOperatorNum) << ", currentNum:" << to_string(currentNum) << endl;
             // found the end of the prime phrase. Back up and pop, then send to our quad generator.
@@ -433,7 +436,16 @@ void SyntaxMain()
                 if (tempToken.tokenClass != "null")
                 {
                     debugInfo << "genQuads returned a Temp," + tempToken.tokenSymbol + " pushing into stack" << endl;
+                    cout << "Current:" << currentToken.tokenClass << "," << currentToken.tokenSymbol << endl;
+                    cout << "Prev:" << prevOperator.tokenClass << "," << currentToken.tokenSymbol << endl;
                     tokenStack.push(tempToken);
+                    if(prevOperator.tokenClass == "$LP"){
+                        debugInfo << "going to ShedParen" << endl;
+                        debugInfo.close();
+                        goto ShedParen;
+                    }
+                    debugInfo << "going to checkAfterQuadGen" << endl;
+                    debugInfo.close();
                     goto checkAfterQuadGen;
                 }
                 if(currentToken.tokenSymbol == ";" && prevOperator.tokenSymbol == "{"){
@@ -458,10 +470,17 @@ void SyntaxMain()
             // We've completed a (---) or {---} or IF THEN ELSE or WHILE DO
             //  ( = )
             if (prevOperator.tokenClass == "$LP" && currentToken.tokenClass == "$RP")
-            {
+            {ShedParen:
                 tokenStack.pop();
                 prevOperator = tokenStack.top();
+                cout << "prev:" << prevOperator.tokenSymbol << endl;
+                if(prevOperator.tokenClass == "$LP"){
+                    tokenStack.pop();
+                    prevOperator = tokenStack.top();
+                    cout << "double shed LP" << endl;
+                }
                 prevOperatorNum = prevOperator.tokenClassToNum();
+                cout << "IN LPRP prev:" << prevOperator.tokenSymbol << endl;
             }
             // { = }
             if (prevOperator.tokenClass == "$LB" && currentToken.tokenClass == "$RB")
@@ -608,7 +627,7 @@ void SyntaxMain()
             goto SkipWhile;
         }
         else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '<')
-        {
+        { cout << "inside yields" << endl;
             // prevOperator yields to the operator in currentToken, push into stack and continue
             if (currentToken.tokenClass == "$WHILE")
             {

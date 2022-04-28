@@ -1,10 +1,8 @@
 Num|Symbol|Class|Value|Address|Segment
-0|PGM1|<program name>|?|?|CS
-1|M|$CONST|7|0|DS
-2|N|$CONST|85|2|DS
-3|X|<var>|?|4|DS
-4|Y|<var>|?|6|DS
-5|Z|<var>|?|8|DS
-6|F|<var>|?|10|DS
-7|A|<var>|?|12|DS
-8|B|<var>|?|14|DS
+0|HEIRARCHY|<program name>|?|?|CS
+1|N|$CONST|2|0|DS
+2|A|<var>|?|2|DS
+3|B|<var>|?|4|DS
+4|X|<var>|?|6|DS
+5|Y|<var>|?|8|DS
+6|1|$NUMLIT|1|10|DS
