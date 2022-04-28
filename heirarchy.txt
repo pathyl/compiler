@@ -1,0 +1,13 @@
+CLASS HEIRARCHY{
+	CONST N = 2;
+	VAR A, B, X, Y;
+	GET(A);
+	GET(B);
+	
+	X = A + B * N;
+	Y = B - A / N;
+	PUT(X);
+	PUT(Y);
+	
+		
+}

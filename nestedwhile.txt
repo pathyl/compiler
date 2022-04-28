@@ -1,0 +1,18 @@
+CLASS NESTED{
+	CONST N = 2;
+	VAR A, B, X, Y;
+	GET(A);
+	GET(B);
+	
+	WHILE(A < 10)DO{
+		A = A + 1;
+		WHILE(B <= 10)DO{
+			B = B + 1;
+		}
+	}
+
+	PUT(A);
+	PUT(B);
+	
+		
+}
