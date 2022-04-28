@@ -5,7 +5,6 @@
 #include <iomanip>
 using std::cout, std::endl;
 
-
 int main(){
     Java0DFSAdrvMain();
     cout << "Java0DFSA (tokenizer) finished" << endl;

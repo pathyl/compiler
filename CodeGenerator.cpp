@@ -31,10 +31,8 @@ class Quad{
         quad4 = q4;
     }
     Quad(){
-        
     }
     private:
-    
 };
 
 class constHolder{
@@ -159,7 +157,6 @@ void CodeGeneratorMain(){
 
         switch(k){
             //= 
-
             case 0: line = "\tmov ax, [" + currQuad.quad3 + "]\n" + "\tmov [" + currQuad.quad2 + "], ax\n";
             break;
             //+

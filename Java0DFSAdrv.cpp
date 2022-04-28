@@ -101,7 +101,8 @@ public:
           case('-'): return 13; break;
           case(','): return 14; break;
           case(';'): return 15; break;
-          default: return 17; break;
+          default: cout << "ERROR - Unrecognized character:" << c << endl;
+           return 17; break;
       }
       //error state
       return -1;
@@ -257,6 +258,7 @@ public:
 	    while(sourceFile >> std::noskipws >> ch){
             //Jump here whenever we need to avoid the while loop overwriting the current char.
             //For example if we have a full token that's been written and the next char is some space or delimiter, we need to spare it from being overwritten.
+            string prevState = "0Start";
             SpareChar:
 			switch (nextState){
             //set the next state based on the token recieved in the current state.
@@ -264,9 +266,12 @@ public:
                     nextState = TokenizerTable[0][CharToColNum(ch)];
                     outputDiagnostic << "0Start char:" << token << " nextState:" << to_string(nextState) << "\n"; 
                     break;
-			case 1: outputDiagnostic << "1eq token:" << token << " char:" << ch << "\n";
-                    nextState = TokenizerTable[1][CharToColNum(ch)]; break;
-			case 2: outputDiagnostic << "2int token:" << token << " char:" << ch << "\n";
+			case 1: prevState = "1eq =";
+                    outputDiagnostic << "1eq token:" << token << " char:" << ch << "\n";
+                    nextState = TokenizerTable[1][CharToColNum(ch)]; 
+                    break;
+			case 2: prevState = "2int integer";
+                    outputDiagnostic << "2int token:" << token << " char:" << ch << "\n";
                     nextState = TokenizerTable[2][CharToColNum(ch)];
                     if(nextState == 2){
                         //only accumulate digits
@@ -275,7 +280,8 @@ public:
                     }else{
                         goto SpareChar;
                     } break;
-			case 3: outputDiagnostic << "3less token:" << token << " char:" << ch << "\n";
+			case 3: prevState = "3less <";
+                    outputDiagnostic << "3less token:" << token << " char:" << ch << "\n";
                     nextState = TokenizerTable[3][CharToColNum(ch)];
                     //Only pick up = to make <=. Otherwise spare the next char.
                     if(nextState == 26){
@@ -283,7 +289,8 @@ public:
                     }else{
                         goto SpareChar;
                     } break;
-			case 4: outputDiagnostic << "4greater token:" << token << " char:" << ch << "\n";
+			case 4: prevState = "4greater >";
+                    outputDiagnostic << "4greater token:" << token << " char:" << ch << "\n";
                     nextState = TokenizerTable[4][CharToColNum(ch)];
                     //Only pick up = to make >=. Otherwise spare the next char.
                     if(nextState == 25){
@@ -291,7 +298,8 @@ public:
                     }else{
                         goto SpareChar;
                     } break;
-			case 5: outputDiagnostic << "5var token:" << token << " char: " << ch << " nextState:" << nextState << "\n";
+			case 5: prevState = "5var varname";
+                    outputDiagnostic << "5var token:" << token << " char: " << ch << " nextState:" << nextState << "\n";
                     nextState = TokenizerTable[5][CharToColNum(ch)];
                     //Only pick up letters and digits. Otherwise spare the next char
                     if(nextState == 5){
@@ -299,7 +307,8 @@ public:
                     }else{
                         goto SpareChar;
                     } break;
-			case 6: outputDiagnostic << "6comment token:" << token << " char:" << ch << " nextState:" << nextState << "\n";
+			case 6: prevState = "6comment start";
+                    outputDiagnostic << "6comment token:" << token << " char:" << ch << " nextState:" << nextState << "\n";
                     nextState = TokenizerTable[6][CharToColNum(ch)]; 
                     //if the next state is 7 we need to accumulate more of the comment.
                     if(nextState == 7){
@@ -309,14 +318,17 @@ public:
                         //not a comment, we will be printing /|<mop>
                         goto SpareChar;
                     } break;
-			case 7: token += ch;
+			case 7: prevState = "7comment1 commentbuilder";
+                    token += ch;
                     outputDiagnostic << "7comment1 token:" << token << " char:" << ch << " nextState:" << nextState << "\n";
                     nextState = TokenizerTable[7][CharToColNum(ch)];
                     break;
-			case 8: token += ch;
+			case 8: prevState = "8comment2 comment found *";
+                    token += ch;
                     outputDiagnostic << "8comment2 token:" << token << " char:" << ch << " nextState:" << nextState << "\n";
                     nextState = TokenizerTable[8][CharToColNum(ch)]; break;
-            case 9: token += ch;
+            case 9: prevState = "9exclamation NOT";
+                    token += ch;
                     outputDiagnostic << "9exclamation token:" << token << " char:" << ch << " nextState:" << nextState << "\n";
                     nextState = TokenizerTable[9][CharToColNum(ch)]; break;
 			case 10:outputDiagnostic << "Got full comment, discard & begin at 0\n";
@@ -427,8 +439,10 @@ public:
                     nextState = 0;
                     token = "";
                     goto SpareChar; break;
-            case -1: outputDiagnostic << "Error" << endl; break;
-			default: outputDiagnostic << "Illegal input!!" << endl; break;
+            case -1: outputDiagnostic << "ERROR: No state transition between:" << ch << " and previous state:" << prevState  << endl;
+            break;
+			default: outputDiagnostic << "Illegal input!!" << endl; 
+            break;
 			}
 		}
         sourceFile.close();
