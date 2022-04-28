@@ -1,0 +1,10 @@
+GET,A,null,null
+GET,B,null,null
+>,A,B,null
+<fixlabel>,_L1,null,null
+=,X,5,null
+jmp,_E1,null,null
+<label>,_L1,null,null
+=,X,100,null
+<label>,_E1,null,null
+PUT,X,null,null

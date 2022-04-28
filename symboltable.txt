@@ -1,0 +1,8 @@
+Num|Symbol|Class|Value|Address|Segment
+0|PGM1|<program name>|?|?|CS
+1|N|$CONST|87|0|DS
+2|A|<var>|?|2|DS
+3|B|<var>|?|4|DS
+4|X|<var>|?|6|DS
+5|5|$NUMLIT|5|8|DS
+6|100|$NUMLIT|100|10|DS

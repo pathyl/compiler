@@ -1,0 +1,16 @@
+CLASS PGM1{
+	CONST M = 7, N = 85;
+	VAR X, Y, Z, F, A, B;
+	GET(A);
+	GET(B);
+	
+	WHILE (A < B) DO {
+		X = 1;
+		WHILE (X < N) DO {
+			Y = 2;
+		}
+		F = 7;
+	}
+	
+		
+}

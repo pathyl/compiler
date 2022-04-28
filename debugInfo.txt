@@ -1,0 +1,20 @@
+Popping Class:$CLASS
+Popping Class2:PGM1
+Found CONST/VAR line:$CONST <var> <assign> <integer> <semi> 
+Deleting from:$CONST to <semi>
+Full line to erase:CONST N = 87 ; 
+Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <semi> 
+Deleting from:$VAR to <semi>
+Full line to erase:VAR A , B , X ; 
+Got front & popped:{
+Found empty stack, pushing:{
+New currentToken after empty push:GET
+Found GET, popping:( A ) ;Got front & popped:GET
+Found GET, popping:( B ) ;Got front & popped:IF
+Entering generateQuads, popVec contains:B,>,A,
+Finished generateQuads, prevOperator set:(
+Entering generateQuads, popVec contains:5,=,X,
+Finished generateQuads, prevOperator set:{
+Entering generateQuads, popVec contains:100,=,X,
+Finished generateQuads, prevOperator set:{
+Got front & popped:}

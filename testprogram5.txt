@@ -1,0 +1,17 @@
+CLASS PGM1{
+	CONST N = 87;
+	VAR A, B, X;
+	GET(A);
+	GET(B);
+
+	
+	IF(A > B)THEN{
+		X = 5;
+	}ELSE{
+		X = 100;
+	}
+
+	PUT(X);
+	
+		
+}

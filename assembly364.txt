@@ -1,0 +1,124 @@
+;begin assembly3.txt
+; exit code
+fini:
+	mov rax,sys_exit ;terminate, sys_exit = 1
+	xor rbx,rbx	;successfully, zero in ebx indicates success
+	int 80h
+
+;	ENDP main
+
+;
+;       Subroutine to print a string on the display
+;
+; Input:
+;       DS:BX = pointer to the string to print
+;
+; Output: None
+;
+; Registers destroyed: none
+;
+;PrintString	PROC
+PrintString:	nop
+	push	rax              ;Save registers;
+	push	rdx
+; subpgm:	nop
+	; prompt user	
+	mov rax, 4		;Linux print device register conventions
+	mov rbx, 1		; print default output device
+	mov rcx, userMsg	; pointer to string
+	mov rdx, lenUserMsg	; arg1, where to write, screen
+	int	80h		; interrupt 80 hex, call kernel
+	pop	rdx              ;Restore registers.
+	pop	rax
+	ret
+;PrintString     ENDP
+
+;%NEWPAGE
+
+;
+
+; Subroutine to get an integer (character string) from the keyboard buffer
+;    and convert it to a 16 bit binary number.
+;
+; Input: none
+;
+; Output: The integer is returned in the AX register as well as the global
+;         variable ReadInt .
+;
+; Registers Destroyed: AX, BX, CX, DX, SI
+;
+; Globals Destroyed: ReadInt, TempChar, tempint, negflag
+;
+;GetAnInteger	PROC
+
+GetAnInteger:	nop	;Get an integer as a string
+	;get response
+	mov rax,3	;read
+	mov rbx,2	;device
+	mov rcx,num	;buffer address
+	mov rdx,6	;max characters
+	int 0x80
+
+	;print number    ;works
+	mov rdx,rax 	; eax contains the number of character read including <lf>
+	mov rax, 4
+	mov rbx, 1
+	mov rcx, num
+	int 80h
+
+ConvertStringToInteger:	nop
+	mov rax,0	;hold integer
+	mov [ReadInt],rax ;initialize 16 bit number to zero
+	mov rcx,num	;pt - 1st or next digit of number as a string 
+			;terminated by <lf>.
+	mov rbx,0	
+	mov bl, byte [rcx] ;contains first or next digit
+Next:	sub bl,'0'	;convert character to number
+	mov rax,[ReadInt]
+	mov rdx,10
+	mul rdx		;eax = eax * 10
+	add rax,rbx
+	mov [ReadInt], rax
+	mov rbx,0
+	add rcx,1 	;pt = pt + 1
+	mov bl, byte[rcx]
+	cmp bl,0xA	;is it a <lf>
+	jne Next	; get next digit  
+	ret
+;	ENDP GetAnInteger
+
+
+
+;%NEWPAGE
+;
+; Subroutine to convert a 16 bit integer to a text string
+;
+; input:
+;       AX = number to convert
+;       DS:BX = pointer to end of string to store text
+;       CX = number of digits to convert
+;
+; output: none
+;
+; Registers destroyed: AX, BX, CX, DX, SI
+; Globals destroyed negflag 
+;
+;ConvertIntegerToString PROC
+
+ConvertIntegerToString:	nop
+	mov rbx, ResultValue + 4   ;Store the integer as a five
+	                    ;digit char string at Result for printing
+
+ConvertLoop:	nop
+	sub rdx,rdx  ; repeatedly divide dx:ax by 10 to obtain last digit of number
+	mov rcx,10  ; as the remainder in the DX register.  Quotient in AX.
+	div rcx
+	add dl,'0' ; Add '0' to dl to convert from binary to character.
+	mov [rbx], dl
+	dec rbx
+	cmp rbx,ResultValue
+	jge ConvertLoop
+	ret
+
+;ConvertIntegerToString  ENDP
+;end assembly3.txt

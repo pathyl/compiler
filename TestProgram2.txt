@@ -1,0 +1,12 @@
+CLASS PGM1{
+	CONST M = 7, N = 85;
+	VAR X, Y, Z, F;
+	GET(F);
+	GET(Y);
+	Z = 3;
+
+	X = M + Y * Z + 12;
+	F = X;
+	PUT(F);
+	PUT(Y);
+}

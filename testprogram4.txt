@@ -1,0 +1,20 @@
+CLASS PGM1{
+	CONST M = 7, N = 85;
+	VAR X, Y, Z, F;
+	GET(X);
+	GET(Y);
+	IF (X < Y) THEN {
+		IF (M < X) THEN{
+			Z = 1;
+		}ELSE{
+			Z = 2;
+		}
+
+
+	}ELSE{
+		Z = 10;
+	}
+	PUT(Z);
+	
+		
+}

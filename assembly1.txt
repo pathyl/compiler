@@ -1,0 +1,42 @@
+;IO1NasmLinux32.asm
+;
+;assemble: nasm -f elf -l IO1Nasm32Linux.lst  IO1Nasm32Linux.asm
+;link: gcc -o IO1Nasm32Linux  IO1Nasm32Linux.o
+;run: ,/IO1Nasm32Linux
+;
+;For 64 bit Linux
+;nasm -felf64 IO1Nasm32Linux.asm && ld IO1Nasm32Linux.o && ./a.out
+;
+;for debugging with gdb or DDD try
+;nasm -g dwarf2 -f elf64 IO1Nasm32Linux.asm -l IO1Nasm32Linux.lst -o IO1Nasm32Linux.o
+;ld -g -o IO1Nasm32Linux IO1Nasm32Linux.o
+;./IO1Nasm32Linux
+	
+sys_exit	equ	1
+sys_read	equ	3
+sys_write	equ	4
+stdin		equ	0 ; default keyboard
+stdout		equ	1 ; default terminal screen
+stderr		equ	3
+
+section .data		;used to declare constants	
+	userMsg		db      'Enter an integer(less than 32,765): '
+	lenUserMsg	equ	$-userMsg
+	displayMsg	db	'You entered: '
+	lenDisplayMsg	equ	$-displayMsg
+	newline		db	0xA 	; 0xA 0xD is ASCII <LF><CR>
+
+	Ten             DW      10  ;Used in converting to base ten.
+
+	printTempchar	db	'Tempchar = : '
+	lenprintTempchar	equ 	$-printTempchar
+
+
+	Result          db      'Ans = '
+	ResultValue	db	'aaaaa'
+			db	0xA		
+	ResultEnd       equ 	$-Result    ; $=> here, subtract address Result
+
+	num		times 6 db 'ABCDEF'
+	numEnd		equ	$-num
+;end assembly1.txt

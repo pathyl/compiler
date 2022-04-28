@@ -1,0 +1,26 @@
+CLASS PGM1{
+	CONST M = 7, N = 85;
+	VAR X, Y, Z, F;
+	GET(F);
+	IF (F < M) THEN{
+	F = F * 2;
+	Y = 2;
+	X = 1;
+	Z = 3;
+	}ELSE{
+	Y = 3;
+	X = 8;
+	Z = 6;
+	}
+	
+	WHILE( F < 7 ) DO{
+		Y = Y + 2;
+		F = F + 1;
+	}
+	
+	Z = Y + X;
+	X = M + Y * Z + 12;
+	F = X;
+
+	PUT(Z);
+}
