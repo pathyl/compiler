@@ -48,8 +48,9 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
+	lit3	DW	3
 	lit1	DW	1
-	N	DW	2
+	N	DW	5
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -90,9 +91,28 @@ _start:	nop
 	mov ax, [N]
 	sub ax, [lit1]
 	mov [T1], ax
-	mov ax, [N]
-	add ax, [lit1]
+	mov ax, [B]
+	mov bx, [T1]
+	mul bx
 	mov [T2], ax
+	mov ax, [A]
+	add ax, [T2]
+	mov [T3], ax
+	mov ax, [T3]
+	mov [X], ax
+	mov ax, [N]
+	sub ax, [lit3]
+	mov [T5], ax
+	mov dx, 0
+	mov ax, [B]
+	mov bx, [T5]
+	div bx
+	mov [T6], ax
+	mov ax, [A]
+	sub ax, [T6]
+	mov [T7], ax
+	mov ax, [T7]
+	mov [Y], ax
 	mov ax, [X]
 	call ConvertIntegerToString
 	call PutInteger

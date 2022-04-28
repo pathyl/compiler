@@ -19,6 +19,7 @@ int Wvar = 1;
 int Evar = 1;
 fstream outputQuads;
 fstream debugInfo;
+
 class Token{
 public:
     string tokenSymbol;
@@ -210,7 +211,8 @@ void SyntaxMain()
     outputQuads.close();
     debugInfo.open("debugInfo.txt", fstream::out);
     debugInfo.close();
-
+    stack<Token> tokenStack;
+    vector<Token> popVec;
 
     // deque containing all constructed Tokens from tokenlist in the order they appeared.
     deque<Token> tokenDeque(1);
@@ -223,8 +225,7 @@ void SyntaxMain()
     Token prevOperator = Token();
     prevOperator.tokenClass = "$LB";
     prevOperator.tokenSymbol = "{";
-    stack<Token> tokenStack;
-    vector<Token> popVec;
+
     Token popToken;
     Token saveToken;
     stack<string> fixUpStack;
@@ -304,6 +305,7 @@ void SyntaxMain()
     while (!tokenDeque.empty())
     {
     SkipWhile:
+    cout << "skipwhile" << endl;
         debugInfo.open("debugInfo.txt", fstream::app);
         if(tokenDeque.size() > 0){
             currentToken = tokenDeque.front();
@@ -320,14 +322,17 @@ void SyntaxMain()
 
     // we jump here if we popped quads and need to check against the new prevOp
     checkAfterQuadGen:
+        cout << "check & set currentnum & prevOp" << endl;
         currentNum = currentToken.tokenClassToNum();
         prevOperatorNum = prevOperator.tokenClassToNum();
+        cout << "set cur:" << to_string(currentNum) << " prev:" << to_string(prevOperatorNum) << endl;
 
         if (tokenStack.empty())
         {
             // stack is empty, automatically add a token and set the currentToken to the next one.
             debugInfo << "Found empty stack, pushing:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
+            cout << "empty push:" << currentToken.tokenSymbol << endl;
             while (tokenDeque.front().tokenClass == "<semi>")
             {
                 tokenDeque.pop_front();
@@ -386,6 +391,7 @@ void SyntaxMain()
             //-1 means it is not an operator, push into stack and do not bother checking precedence.
             debugInfo << "Inside NotOperator if, pushing nonoperator into PDA:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
+            cout << "Notoperator push:" << currentToken.tokenSymbol << endl;
             goto SkipWhile;
         }
         else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '>')
@@ -422,6 +428,15 @@ void SyntaxMain()
                 // We should have a vector containing the non-terminals + operator in reverse order. e.g. Tom / Mary should become Mary / Tom in the vector.
                 opCount = 0;
                 // generateQuads will return a T var if we need to push it into the stack, otherwise return a Token with tokenClass = "null".
+                    cout << "prec check was:" << to_string(prevOperatorNum) << ">" << to_string(currentNum) << endl;
+                    /*
+                    cout << "Stack is:" << endl;
+                    for(int i = 0; i > tokenStack.size(); i++){
+                        Token j = tokenStack.top();
+                        cout << j.tokenSymbol << "," << j.tokenClass << endl;
+                        tokenStack.pop();
+                    }*/
+
                 debugInfo.close();
                 tempToken = generateQuads(popVec);
                 popVec.clear();
@@ -471,16 +486,26 @@ void SyntaxMain()
             //  ( = )
             if (prevOperator.tokenClass == "$LP" && currentToken.tokenClass == "$RP")
             {ShedParen:
-                tokenStack.pop();
-                prevOperator = tokenStack.top();
-                cout << "prev:" << prevOperator.tokenSymbol << endl;
-                if(prevOperator.tokenClass == "$LP"){
+                cout << "in LPRP popping:" << tokenStack.top().tokenSymbol << endl;
+                if(tokenStack.top().tokenSymbol[0] == 'T'){
+                    //this is a T var that was pushed, we need to save and get the operator
+                    tempToken = tokenStack.top();
+                    tokenStack.pop();
                     tokenStack.pop();
                     prevOperator = tokenStack.top();
-                    cout << "double shed LP" << endl;
+                    cout << "T var handler prevOP:" << prevOperator.tokenSymbol << endl;
+                    tokenStack.push(tempToken);
+                    cout << "T var handler, new prev:" << prevOperator.tokenSymbol << endl;
+                    cout << "T var top:" << tokenStack.top().tokenSymbol << endl;
+
+                }else{
+                    tokenStack.pop();
+                    prevOperator = tokenStack.top();
+                    cout << "prev:" << prevOperator.tokenSymbol << endl;
+                    prevOperatorNum = prevOperator.tokenClassToNum();
+                    cout << "IN LPRP prev:" << prevOperator.tokenSymbol << endl;
                 }
-                prevOperatorNum = prevOperator.tokenClassToNum();
-                cout << "IN LPRP prev:" << prevOperator.tokenSymbol << endl;
+
             }
             // { = }
             if (prevOperator.tokenClass == "$LB" && currentToken.tokenClass == "$RB")
@@ -645,6 +670,7 @@ void SyntaxMain()
                 startWhileStack.push(tmp);
                 Wvar++;
             }
+            cout << "yields pushing:" << currentToken.tokenSymbol << "," << currentToken.tokenClass << endl;
             tokenStack.push(currentToken);
             prevOperator = tokenStack.top();
             prevOperatorNum = prevOperator.tokenClassToNum();

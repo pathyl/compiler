@@ -48,9 +48,9 @@ In 3, nextState=4
 1eq token:= char: 
 In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
 In 4, nextState=5
-0Start char:2 nextState:2
-2int token:2 char:;
-In SymbolTableBuilder, tokenVal:2 tokenClass:<integer> col:7
+0Start char:5 nextState:2
+2int token:5 char:;
+In SymbolTableBuilder, tokenVal:5 tokenClass:<integer> col:7
 In 5, nextState=6
 0Start char:; nextState:24
 In SymbolTableBuilder, tokenVal:; tokenClass:<semi> col:8
@@ -227,21 +227,21 @@ In 0, nextState=0 col:1
 1eq token:= char: 
 In SymbolTableBuilder, tokenVal:= tokenClass:<assign> col:6
 In 0, nextState=0 col:6
-0Start char:B nextState:5
-5var token:B char:   nextState:5
-In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
-In 0, nextState=0 col:1
-14ident token:B Found <var>
-0Start char:  nextState:0
-0Start char:- nextState:22
-In SymbolTableBuilder, tokenVal:- tokenClass:<addop> col:11
-In 0, nextState=0 col:11
-0Start char:  nextState:0
 0Start char:A nextState:5
 5var token:A char:   nextState:5
 In SymbolTableBuilder, tokenVal:A tokenClass:<var> col:1
 In 0, nextState=0 col:1
 14ident token:A Found <var>
+0Start char:  nextState:0
+0Start char:- nextState:22
+In SymbolTableBuilder, tokenVal:- tokenClass:<addop> col:11
+In 0, nextState=0 col:11
+0Start char:  nextState:0
+0Start char:B nextState:5
+5var token:B char:   nextState:5
+In SymbolTableBuilder, tokenVal:B tokenClass:<var> col:1
+In 0, nextState=0 col:1
+14ident token:B Found <var>
 0Start char:  nextState:0
 0Start char:/ nextState:6
 6comment token:/ char:  nextState:6
@@ -257,13 +257,13 @@ In SymbolTableBuilder, tokenVal:N tokenClass:<var> col:1
 In 0, nextState=0 col:1
 14ident token:N Found <var>
 0Start char:  nextState:0
-0Start char:+ nextState:21
-In SymbolTableBuilder, tokenVal:+ tokenClass:<addop> col:11
+0Start char:- nextState:22
+In SymbolTableBuilder, tokenVal:- tokenClass:<addop> col:11
 In 0, nextState=0 col:11
 0Start char:  nextState:0
-0Start char:1 nextState:2
-2int token:1 char:)
-In SymbolTableBuilder, tokenVal:1 tokenClass:<integer> col:7
+0Start char:3 nextState:2
+2int token:3 char:)
+In SymbolTableBuilder, tokenVal:3 tokenClass:<integer> col:7
 In 0, nextState=0 col:7
 0Start char:) nextState:18
 In SymbolTableBuilder, tokenVal:) tokenClass:$RP col:11

@@ -5,7 +5,7 @@ HEIRARCHY|<var>
 CONST|$CONST
 N|<var>
 =|<assign>
-2|<integer>
+5|<integer>
 ;|<semi>
 VAR|$VAR
 A|<var>
@@ -40,14 +40,14 @@ N|<var>
 ;|<semi>
 Y|<var>
 =|<assign>
-B|<var>
--|<addop>
 A|<var>
+-|<addop>
+B|<var>
 /|<mop>
 (|$LP
 N|<var>
-+|<addop>
-1|<integer>
+-|<addop>
+3|<integer>
 )|$RP
 ;|<semi>
 PUT|<var>
