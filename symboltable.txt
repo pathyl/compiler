@@ -1,6 +1,5 @@
 Num|Symbol|Class|Value|Address|Segment
-0|FACTORIAL|<program name>|?|?|CS
-1|X|<var>|?|0|DS
-2|N|<var>|?|2|DS
-3|fact|<var>|?|4|DS
-4|1|$NUMLIT|1|6|DS
+0|test|<program name>|?|?|CS
+1|M|$CONST|8|0|DS
+2|X|<var>|?|2|DS
+3|8|$NUMLIT|8|4|DS

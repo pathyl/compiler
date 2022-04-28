@@ -1,12 +1,12 @@
 CLASS NESTED{
-	CONST N = 2;
-	VAR A, B, X, Y;
+	CONST N = 10;
+	VAR A, B;
 	GET(A);
 	GET(B);
 	
-	WHILE(A < 10)DO{
+	WHILE(A < N)DO{
 		A = A + 1;
-		WHILE(B <= 10)DO{
+		WHILE(B <= N)DO{
 			B = B + 1;
 		}
 	}

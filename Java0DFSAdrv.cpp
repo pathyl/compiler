@@ -212,6 +212,7 @@ public:
         cout << "\n" << "Type the source filename (with extension): ";
         cin >> sourceFileName;
         outputDiagnostic << endl;
+        cout << "\n";
 
         sourceFile.open(sourceFileName, fstream::in);
         outputTokenList.open("tokenlist.txt", fstream::out);

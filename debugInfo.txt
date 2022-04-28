@@ -1,47 +1,25 @@
 dequebuilder pushed:CLASS|$CLASS
-dequebuilder pushed:FACTORIAL|<var>
+dequebuilder pushed:test|<var>
 dequebuilder pushed:{|$LB
+dequebuilder pushed:CONST|$CONST
+dequebuilder pushed:M|<var>
+dequebuilder pushed:=|<assign>
+dequebuilder pushed:8|<integer>
+dequebuilder pushed:;|<semi>
 dequebuilder pushed:VAR|$VAR
 dequebuilder pushed:X|<var>
-dequebuilder pushed:,|<comma>
-dequebuilder pushed:N|<var>
-dequebuilder pushed:,|<comma>
-dequebuilder pushed:fact|<var>
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:N|<var>
-dequebuilder pushed:=|<assign>
-dequebuilder pushed:1|<integer>
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
 dequebuilder pushed:X|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
-dequebuilder pushed:fact|<var>
-dequebuilder pushed:=|<assign>
-dequebuilder pushed:X|<var>
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:WHILE|$WHILE
-dequebuilder pushed:(|$LP
-dequebuilder pushed:N|<var>
-dequebuilder pushed:<|<relop>
-dequebuilder pushed:fact|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:DO|$DO
-dequebuilder pushed:{|$LB
 dequebuilder pushed:X|<var>
 dequebuilder pushed:=|<assign>
 dequebuilder pushed:X|<var>
-dequebuilder pushed:*|<mop>
-dequebuilder pushed:N|<var>
+dequebuilder pushed:/|<mop>
+dequebuilder pushed:8|<integer>
 dequebuilder pushed:;|<semi>
-dequebuilder pushed:N|<var>
-dequebuilder pushed:=|<assign>
-dequebuilder pushed:N|<var>
-dequebuilder pushed:+|<addop>
-dequebuilder pushed:1|<integer>
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
 dequebuilder pushed:PUT|<var>
 dequebuilder pushed:(|$LP
 dequebuilder pushed:X|<var>
@@ -49,29 +27,25 @@ dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:}|$RB
 Popping Class:$CLASS
-Popping Class2:FACTORIAL
-Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <semi> 
+Popping Class2:test
+Found CONST/VAR line:$CONST <var> <assign> <integer> <semi> 
+Deleting from:$CONST to <semi>
+Full line to erase:CONST M = 8 ; 
+Found CONST/VAR line:$VAR <var> <semi> 
 Deleting from:$VAR to <semi>
-Full line to erase:VAR X , N , fact ; 
+Full line to erase:VAR X ; 
 Got front & popped:{
-Inside NotOperator if, pushing nonoperator into PDA:N
-Entering generateQuads, popVec contains:1,=,N,
-Finished generateQuads, prevOperator set:{
-Got front & popped:fact
-Inside NotOperator if, pushing nonoperator into PDA:fact
-Entering generateQuads, popVec contains:X,=,fact,
-Finished generateQuads, prevOperator set:{
-Entering generateQuads, popVec contains:fact,<,N,
-Finished generateQuads, prevOperator set:(
-Entering generateQuads, popVec contains:N,*,X,
+Found GET, popping:( X ) ;Got front & popped:X
+Inside NotOperator if, pushing nonoperator into PDA:X
+Entering generateQuads, popVec contains:8,/,X,
 Finished generateQuads, prevOperator set:=
-genQuads returned a Temp,T4 pushing into stack
+genQuads returned a Temp,T1 pushing into stack
 going to checkAfterQuadGen
 Inside >, prevOperatorNum:1, currentNum:0
-topStack:T4
+topStack:T1
 Building popVector for quads
-Pushing to popVec:T4
-Popping from stackT4
+Pushing to popVec:T1
+Popping from stackT1
 New popToken:=
 Building popVector for quads
 Found operator:=
@@ -82,27 +56,6 @@ Building popVector for quads
 Pushing to popVec:X
 Popping from stackX
 New popToken:{
-Entering generateQuads, popVec contains:T4,=,X,
-Finished generateQuads, prevOperator set:{
-Entering generateQuads, popVec contains:1,+,N,
-Finished generateQuads, prevOperator set:=
-genQuads returned a Temp,T6 pushing into stack
-going to checkAfterQuadGen
-Inside >, prevOperatorNum:1, currentNum:0
-topStack:T6
-Building popVector for quads
-Pushing to popVec:T6
-Popping from stackT6
-New popToken:=
-Building popVector for quads
-Found operator:=
-Pushing to popVec:=
-Popping from stack=
-New popToken:N
-Building popVector for quads
-Pushing to popVec:N
-Popping from stackN
-New popToken:{
-Entering generateQuads, popVec contains:T6,=,N,
+Entering generateQuads, popVec contains:T1,=,X,
 Finished generateQuads, prevOperator set:{
 Got front & popped:}

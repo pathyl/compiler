@@ -48,7 +48,8 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
-	lit1	DW	1
+	lit8	DW	8
+	M	DW	8
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -72,36 +73,20 @@ section	.bss		;used to declare uninitialized variables
 	global _start   ;main program
 
 ;Begin adding vars
-	fact	RESW	1
-	N	RESW	1
 	X	RESW	1
 section .text
 _start:	nop
-	mov ax, [lit1]
-	mov [N], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
 	mov [X], ax
+	mov dx, 0
 	mov ax, [X]
-	mov [fact], ax
-_W1:	nop
-	mov ax, [N]
-	cmp ax, [fact]
-	jge _E1
-	mov ax, [X]
-	mov bx, [N]
-	mul bx
-	mov [T4], ax
-	mov ax, [T4]
+	mov bx, [lit8]
+	div bx
+	mov [T1], ax
+	mov ax, [T1]
 	mov [X], ax
-	mov ax, [N]
-	add ax, [lit1]
-	mov [T6], ax
-	mov ax, [T6]
-	mov [N], ax
-	jmp _W1
-_E1:	nop
 	mov ax, [X]
 	call ConvertIntegerToString
 	call PutInteger

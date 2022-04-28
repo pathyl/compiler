@@ -8,10 +8,10 @@ using std::cout, std::endl;
 
 int main(){
     Java0DFSAdrvMain();
-    cout << "Java0DFSA finished" << endl;
+    cout << "Java0DFSA (tokenizer) finished" << endl;
     SyntaxMain();
-    cout << "Syntax finished" << endl;
+    cout << "Syntax finished - quads generated" << endl;
     CodeGeneratorMain();
-    cout << "codegen finished" << endl;
+    cout << "codegen finished - assembly generated" << endl;
     return 0;
 }

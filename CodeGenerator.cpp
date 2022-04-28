@@ -102,7 +102,6 @@ void CodeGeneratorMain(){
         constStack.pop(); 
     }
 
-
     templates.open("newassembly2.txt", fstream::in);
     while(std::getline(templates, line)){
         myAsm << line << "\n";
@@ -162,7 +161,6 @@ void CodeGeneratorMain(){
             //= 
 
             case 0: line = "\tmov ax, [" + currQuad.quad3 + "]\n" + "\tmov [" + currQuad.quad2 + "], ax\n";
-                        cout << "in assign quad3" << currQuad.quad3 << " quad2" << currQuad.quad2 << " k:" << to_string(k) << endl;
             break;
             //+
             case 1: line = "\tmov ax, [" + currQuad.quad2 + "]\n" + "\tadd ax, [" + currQuad.quad3 + "]\n" + "\tmov [" + currQuad.quad4 + "], ax\n";
@@ -215,7 +213,7 @@ void CodeGeneratorMain(){
             //<label>
             case 15: line = currQuad.quad2 + ":\tnop\n";
             break;
-            default: cout << "ERROR while generating code for quad:" << currQuad.quad1 << "," << currQuad.quad2 << "," << currQuad.quad3 << "," << currQuad.quad4 << "\n";
+            default: cout << "ERROR - in CodeGenerator - while generating code for quad:" << currQuad.quad1 << "," << currQuad.quad2 << "," << currQuad.quad3 << "," << currQuad.quad4 << "\n";
             break;
         }
         myAsm.open("myAssembly.asm", fstream::app);

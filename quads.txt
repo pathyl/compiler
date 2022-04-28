@@ -1,13 +1,4 @@
-=,N,1,null
 GET,X,null,null
-=,fact,X,null
-<label>,_W1,null,null
-<,N,fact,null
-jmp,_E1,null,null
-*,X,N,T4
-=,X,T4,null
-+,N,1,T6
-=,N,T6,null
-jmp,_W1,null,null
-<label>,_E1,null,null
+/,X,8,T1
+=,X,T1,null
 PUT,X,null,null
