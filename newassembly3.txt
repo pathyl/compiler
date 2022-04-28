@@ -6,24 +6,9 @@ fini:   nop
 	xor ebx,ebx	;successfully, zero in ebx indicates success
 	int 80h
 
-;	ENDP main
-
-;
-;       Subroutine to print a string on the display
-;
-; Input:
-;       DS:BX = pointer to the string to print
-;
-; Output: None
-;
-; Registers destroyed: none
-;
-;PrintString     PROC
 PrintString:
 	push    ax              ;Save registers;
 	push    dx
-; subpgm:
-	; prompt user	
 	mov eax, 4		;Linux print device register conventions
 	mov ebx, 1		; print default output device
 	mov ecx, userMsg	; pointer to string
@@ -32,25 +17,6 @@ PrintString:
 	pop     dx              ;Restore registers.
 	pop     ax
 	ret
-;PrintString     ENDP
-
-;%NEWPAGE
-
-;
-
-; Subroutine to get an integer (character string) from the keyboard buffer
-;    and convert it to a 16 bit binary number.
-;
-; Input: none
-;
-; Output: The integer is returned in the AX register as well as the global
-;         variable ReadInt .
-;
-; Registers Destroyed: AX, BX, CX, DX, SI
-;
-; Globals Destroyed: ReadInt, TempChar, tempint, negflag
-;
-;GetAnInteger    PROC
 
 GetAnInteger:	;Get an integer as a string
 	;get response
@@ -101,24 +67,6 @@ PutInteger:
 	pop dx
 	ret
 
-
-
-;ENDP GetAnInteg;
-;%NEWPAGE;
-; Subroutine to convert a 16 bit integer to a text string
-;
-; input:
-;       AX = number to convert
-;       DS:BX = pointer to end of string to store text
-;       CX = number of digits to convert
-;
-; output: none
-;
-; Registers destroyed: AX, BX, CX, DX, SI
-; Globals destroyed negflag 
-;
-;ConvertIntegerToString PROC
-
 ConvertIntegerToString:
 	mov ebx, ResultValue + 4   ;Store the integer as a five
 	                    ;digit char string at Result for printing
@@ -132,5 +80,5 @@ ConvertLoop:
 	cmp ebx,ResultValue
 	jge ConvertLoop
 	ret
-;ConvertIntegerToString  ENDP
+
 
