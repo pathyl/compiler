@@ -13,6 +13,7 @@ const string OPERATORS[] = {"<semi>", "<assign>", "<addop>", "$LP", "$RP", "<mop
 const int OPERATORS_SIZE = 16;
 const int PREC_TABLE_ROWS = 16;
 const int PREC_TABLE_COLS = 16;
+//track labels and temporrary vars
 int Tvar = 1;
 int Lvar = 1;
 int Wvar = 1;
@@ -141,9 +142,9 @@ Token generateQuads(vector<Token> popVec){
                 break;
             case 6: // IF handled at IF = THEN, or IF = THEN = ELSE
                 break;
-            case 7: // THEN
+            case 7: // THEN handled in = precedence
                 break;
-            case 8: // ELSE
+            case 8: // ELSE handled in = precedence
                 break;
             case 9: // ODD quad ODD, A, null, null. vec is A, ODD
                 opQuad = popVec.at(1);
@@ -164,13 +165,13 @@ Token generateQuads(vector<Token> popVec){
                 outputQuads << opQuad.tokenSymbol << "," << quad2.tokenSymbol << "," << quad3.tokenSymbol << "," << quad4.tokenSymbol << endl;
                 outputQuads.close();
                 break;
-            case 11: // LB handled when {=}
+            case 11: //LB handled when {=}
                 break;
-            case 12: // RB
+            case 12: //RB
                 break;
-            case 13: // CALL A option, probably won't implement
+            case 13: //CALL() A option, not implemented
                 break;
-            case 14: // WHILE handled when WHEN = DO
+            case 14: //WHILE handled when WHEN = DO
                 break;
             case 15: // DO
                 break;
@@ -196,23 +197,21 @@ void SyntaxMain(){
     outputQuads.close();
     debugInfo.open("debugInfo.txt", fstream::out);
     debugInfo.close();
+    //Pushdown Automata that receives tokens
     stack<Token> tokenStack;
+    //Store popped tokens to generate quad
     vector<Token> popVec;
-
-    // deque containing all constructed Tokens from tokenlist in the order they appeared.
-
     string tmp = "    ";
-
     // currentToken stores the latest token grabbed, possibly an operator or non-terminal.
     Token currentToken;
-
     // prevToken stores the last operator in the stack.
     Token prevOperator = Token();
     prevOperator.tokenClass = "$LB";
     prevOperator.tokenSymbol = "{";
-
+    //Temporaries for handling T vars
     Token popToken;
     Token saveToken;
+    //Stacks for handling IF/WHILE labels
     stack<string> fixUpStack;
     stack<string> endStack;
     stack<string> startWhileStack;
@@ -222,14 +221,13 @@ void SyntaxMain(){
             operatorPrecedenceTable[row][col] = operatorPrecedenceData[row * PREC_TABLE_COLS + col];
         }
     }
-
-    // read in tokens and put them into a deque
+    //read in tokens and put them into a deque
     //pop header
     std::getline(tokenList, tmp);
-
     debugInfo.open("debugInfo.txt", fstream::app);
+    //deque containing all constructed Tokens from tokenlist in the order they appeared.
     deque<Token> tokenDeque;
-    tokenDeque.push_back(popToken);
+    tokenDeque.push_back(popToken); //initialize deque or linux will complain
     tokenDeque.pop_back();
     while (std::getline(tokenList, tmp, '|')){
         Token newToken;
@@ -256,7 +254,6 @@ void SyntaxMain(){
 
     // erase CONST ---------; and VAR ---------; these are already put into the symbol table during lexical analysis.
     for (int i = 0; i < tokenDeque.size(); i++){
-
         if (tokenDeque.at(i).tokenClass == "$CONST" || tokenDeque.at(i).tokenClass == "$VAR"){
             debugInfo << "Found CONST/VAR line:" << tokenDeque.at(i).tokenClass << " ";
             bool foundSemi = false;
@@ -264,8 +261,7 @@ void SyntaxMain(){
             while (!foundSemi){
                 k++;
                 debugInfo << tokenDeque.at(k).tokenClass << " ";
-                if (tokenDeque.at(k).tokenClass == "<semi>")
-                {
+                if (tokenDeque.at(k).tokenClass == "<semi>"){
                     foundSemi = true;
                 }
             }
@@ -276,6 +272,7 @@ void SyntaxMain(){
                 debugInfo << tokenDeque.at(j).tokenSymbol << " ";
             }
             debugInfo << endl;
+            //linux wants it this way
             std::deque<Token>::iterator iterBegin = tokenDeque.begin() + i;
             std::deque<Token>::iterator iterEnd = tokenDeque.begin() + k;
             tokenDeque.erase(iterBegin, iterEnd);
@@ -298,14 +295,12 @@ void SyntaxMain(){
             }
         }
 
-
-
     // we jump here if we popped quads and need to check against the new prevOp
+    //or if we just want to avoid grabbing the next token up
     checkAfterQuadGen:
         currentNum = currentToken.tokenClassToNum();
         prevOperatorNum = prevOperator.tokenClassToNum();
         if (tokenStack.empty()){
-            cout << "tokenstack empty check start" << endl;
             // stack is empty, automatically add a token and set the currentToken to the next one.
             tokenStack.push(currentToken);
             while (tokenDeque.front().tokenClass == "<semi>"){
@@ -313,34 +308,26 @@ void SyntaxMain(){
             }
             currentToken = tokenDeque.front();
             tokenDeque.pop_front();
-
             // if the current token was an operator, set prevOperatorNum to currentNum before recalculating currentNum
             if (currentNum != -1){
                 // the current token is an operator.
                 prevOperatorNum = currentNum;
             }
-
             currentNum = currentToken.tokenClassToNum();
         }
         // GET/PUT handlers
         if (currentToken.tokenSymbol == "GET"){
-            debugInfo << "Found GET, popping:" << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop (
             outputQuads.open("quads.txt", fstream::app);
-            outputQuads << "GET"
-                        << "," << tokenDeque.front().tokenSymbol << ",null,null" << endl;
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
+            outputQuads << "GET" << "," << tokenDeque.front().tokenSymbol << ",null,null" << endl;
             tokenDeque.pop_front(); // pop var
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop )
-            debugInfo << " " << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop ;
             outputQuads.close();
             debugInfo.close();
             goto SkipWhile;
         }
         if (currentToken.tokenSymbol == "PUT"){ 
-            //cout << "Found PUT, popping:" << tokenDeque.front().tokenSymbol;
             tokenDeque.pop_front(); // pop (
             outputQuads.open("quads.txt", fstream::app);
             outputQuads << "PUT"
@@ -354,7 +341,6 @@ void SyntaxMain(){
         }
         if (currentNum == -1){
             //-1 means it is not an operator, push into stack and do not bother checking precedence.
-            debugInfo << "Inside NotOperator if, pushing nonoperator into PDA:" << currentToken.tokenSymbol << endl;
             tokenStack.push(currentToken);
             goto SkipWhile;
         }
@@ -368,67 +354,60 @@ void SyntaxMain(){
             popToken = tokenStack.top();
             int opCount = 0;
             // while the popToken is not an operator, push it into the vector. We expect to encounter 1 operator, our prevOperator.
-            if(currentToken.tokenClass == "$ELSE" && prevOperator.tokenClass == "$RB"){
-                //need to handle this in a different way than normal operators.
-            }else if(currentToken.tokenClass == "$THEN" && prevOperator.tokenClass == "$RB"){
-                //set this up to handle IFTHEN instead of IFTHENELSE, currently need full IFTHENELSE
-            }else{
-                //handler for normal arithmetic & relational operators.
-                while (popToken.tokenClassToNum() == -1 || opCount < 1){
-                    debugInfo << "Building popVector for quads" << endl;
-                    if (popToken.tokenClassToNum() != -1)
-                    {// We've encountered our prevOperator. This is the only operator we must allow in.
-                        debugInfo << "Found operator:" << popToken.tokenSymbol << endl;
-                        opCount++;
-                    }
-                    debugInfo << "Pushing to popVec:" << popToken.tokenSymbol << endl;
-                    popVec.push_back(popToken);
-                    debugInfo << "Popping from stack" << tokenStack.top().tokenSymbol << endl;
-                    tokenStack.pop();
-                    debugInfo << "New popToken:" << tokenStack.top().tokenSymbol << endl;
-                    popToken = tokenStack.top();
+            //handler for normal arithmetic & relational operators.
+            while (popToken.tokenClassToNum() == -1 || opCount < 1){
+                debugInfo << "Building popVector for quads" << endl;
+                if (popToken.tokenClassToNum() != -1){
+                    // We've encountered our prevOperator. This is the only operator we must allow in.
+                    debugInfo << "Found operator:" << popToken.tokenSymbol << endl;
+                    opCount++;
                 }
-                //We should have a vector containing the non-terminals + operator in reverse order. e.g. Tom / Mary should become Mary / Tom in the vector.
-                opCount = 0;
-                debugInfo.close();
-                tempToken = generateQuads(popVec);
-                popVec.clear();
-                debugInfo.open("debugInfo.txt", fstream::app);
-                while (tokenStack.top().tokenSymbol == ";"){
-                    tokenStack.pop();
-                }
-                debugInfo << "Finished generateQuads, prevOperator set:" << tokenStack.top().tokenSymbol << endl;
-                prevOperator = tokenStack.top();
-                prevOperatorNum = prevOperator.tokenClassToNum();
-                //generateQuads will return a T var if we need to push it into the stack, otherwise return a Token with tokenClass = "null".
-                if (tempToken.tokenClass != "null")
-                {
-                    debugInfo << "genQuads returned a Temp," + tempToken.tokenSymbol + " pushing into stack" << endl;
-                    tokenStack.push(tempToken);
-                    if(prevOperator.tokenClass == "$LP"){
-                        debugInfo << "going to ShedParen" << endl;
-                        debugInfo.close();
-                        goto ShedParen;
-                    }
-                    debugInfo << "going to checkAfterQuadGen" << endl;
+                debugInfo << "Pushing to popVec:" << popToken.tokenSymbol << endl;
+                popVec.push_back(popToken);
+                debugInfo << "Popping from stack" << tokenStack.top().tokenSymbol << endl;
+                tokenStack.pop();
+                debugInfo << "New popToken:" << tokenStack.top().tokenSymbol << endl;
+                popToken = tokenStack.top();
+            }
+            //We should have a vector containing the non-terminals + operator in reverse order. e.g. Tom / Mary should become Mary / Tom in the vector.
+            opCount = 0;
+            debugInfo.close();
+            tempToken = generateQuads(popVec);
+            popVec.clear();
+            debugInfo.open("debugInfo.txt", fstream::app);
+            while (tokenStack.top().tokenSymbol == ";"){
+                tokenStack.pop();
+            }
+            debugInfo << "Finished generateQuads, prevOperator set:" << tokenStack.top().tokenSymbol << endl;
+            prevOperator = tokenStack.top();
+            prevOperatorNum = prevOperator.tokenClassToNum();
+            //generateQuads will return a T var if we need to push it into the stack, otherwise return a Token with tokenClass = "null".
+            if (tempToken.tokenClass != "null"){
+                debugInfo << "genQuads returned a Temp," + tempToken.tokenSymbol + " pushing into stack" << endl;
+                tokenStack.push(tempToken);
+                if(prevOperator.tokenClass == "$LP"){
+                    debugInfo << "going to ShedParen" << endl;
                     debugInfo.close();
-                    goto checkAfterQuadGen;
+                    goto ShedParen;
                 }
-                if(currentToken.tokenSymbol == ";" && prevOperator.tokenSymbol == "{"){
-                    //we have fully completed a statement and need to get rid of the lingering ;
-                    goto SkipWhile;
-                }
+                debugInfo << "going to checkAfterQuadGen" << endl;
+                debugInfo.close();
                 goto checkAfterQuadGen;
             }
+            if(currentToken.tokenSymbol == ";" && prevOperator.tokenSymbol == "{"){
+                //we have fully completed a statement and need to get rid of the lingering ;
+                goto SkipWhile;
+            }
+            goto checkAfterQuadGen;
+        
 
             
         }
-        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '=')
-        {
+        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '='){
             // We've completed a (---) or {---} or IF THEN ELSE or WHILE DO
             //  ( = )
-            if (prevOperator.tokenClass == "$LP" && currentToken.tokenClass == "$RP")
-            {ShedParen:
+            if (prevOperator.tokenClass == "$LP" && currentToken.tokenClass == "$RP"){
+                ShedParen:
                 if(tokenStack.top().tokenSymbol[0] == 'T'){
                     //this is a T var that was pushed, we need to save and get the operator
                     tempToken = tokenStack.top();
@@ -460,8 +439,7 @@ void SyntaxMain(){
 
             }
             // { = }
-            if (prevOperator.tokenClass == "$LB" && currentToken.tokenClass == "$RB")
-            {
+            if (prevOperator.tokenClass == "$LB" && currentToken.tokenClass == "$RB"){
                 tokenStack.pop();
                 //currentToken = tokenDeque.front();
                 //tokenDeque.pop_front();
@@ -521,8 +499,7 @@ void SyntaxMain(){
                 }
             }
             //   IF = THEN
-            if (prevOperator.tokenClass == "$IF" && currentToken.tokenClass == "$THEN")
-            {
+            if (prevOperator.tokenClass == "$IF" && currentToken.tokenClass == "$THEN"){
                 // when this happens we have popped the boolean expression and need to generate the label.
                 //this label will go into the fix-up stack. this will be directly after a relop quad >=, A, B, null
                 //we need to come back later and find relop quad >=, A, B, null followed by <label>,L#,null,null and make it jne,jle,jge L# when we generate code from quads
@@ -545,8 +522,7 @@ void SyntaxMain(){
                 Lvar++;
             }
             //   THEN = ELSE
-            if (prevOperator.tokenClass == "$THEN" && currentToken.tokenClass == "$ELSE")
-            {
+            if (prevOperator.tokenClass == "$THEN" && currentToken.tokenClass == "$ELSE"){
                 // when this happens we have popped the {---} after THEN and need to generate the label for the ELSE.
                 //ELSE is being pushed into the stack
                 tokenStack.push(currentToken);
@@ -575,8 +551,7 @@ void SyntaxMain(){
                 outputQuads.close();
             }
             //   WHILE = DO
-            if (prevOperator.tokenClass == "$WHILE" && currentToken.tokenClass == "$DO")
-            {
+            if (prevOperator.tokenClass == "$WHILE" && currentToken.tokenClass == "$DO"){
                 // when this happens we have popped the boolean expression for WHILE and need to generate the label to exit WHILE.
                 // jmp E# as DO is placed into the stack
                 cout << "WHILEDO handler pushing:" << currentToken.tokenSymbol << endl;
@@ -600,11 +575,9 @@ void SyntaxMain(){
             }
             goto SkipWhile;
         }
-        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '<')
-        { cout << "inside yields" << endl;
+        else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '<'){
             // prevOperator yields to the operator in currentToken, push into stack and continue
-            if (currentToken.tokenClass == "$WHILE")
-            {
+            if (currentToken.tokenClass == "$WHILE"){
                 // generate the label for the start WHILE
                 outputQuads.open("quads.txt", fstream::app);
                 labelNum = to_string(Wvar);
