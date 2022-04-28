@@ -165,7 +165,7 @@ void CodeGeneratorMain(){
                         cout << "in assign quad3" << currQuad.quad3 << " quad2" << currQuad.quad2 << " k:" << to_string(k) << endl;
             break;
             //+
-            case 1: line = "\tmov ax, [" + currQuad.quad2 + "]\n" + "\tadd [" + currQuad.quad3 + "], ax\n" + "\tmov [" + currQuad.quad4 + "], ax\n";
+            case 1: line = "\tmov ax, [" + currQuad.quad2 + "]\n" + "\tadd ax, [" + currQuad.quad3 + "]\n" + "\tmov [" + currQuad.quad4 + "], ax\n";
             break;
             //-
             case 2: line = "\tmov ax, [" + currQuad.quad2 + "]\n" + "\tsub ax, [" + currQuad.quad3 + "]\n" + "\tmov [" + currQuad.quad4 + "], ax\n";

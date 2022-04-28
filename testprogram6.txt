@@ -4,13 +4,15 @@ CLASS PGM1{
 	GET(A);
 	GET(B);
 	
-	WHILE (A < B) DO {
-		X = 1;
-		WHILE (X < N) DO {
-			Y = 2;
-		}
-		F = 7;
-	}
+	X = A - B;
+	Y = A + B;
+	Z = A * B;
+	F = A / B;
+
+	PUT(X);
+	PUT(Y);
+	PUT(Z);
+	PUT(F);
 	
 		
 }

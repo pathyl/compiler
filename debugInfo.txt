@@ -1,24 +1,98 @@
 Popping Class:$CLASS
 Popping Class2:PGM1
-Found CONST/VAR line:$CONST <var> <assign> <integer> <semi> 
+Found CONST/VAR line:$CONST <var> <assign> <integer> <comma> <var> <assign> <integer> <semi> 
 Deleting from:$CONST to <semi>
-Full line to erase:CONST N = 87 ; 
-Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <semi> 
+Full line to erase:CONST M = 7 , N = 85 ; 
+Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <semi> 
 Deleting from:$VAR to <semi>
-Full line to erase:VAR A , B , X ; 
+Full line to erase:VAR X , Y , Z , F , A , B ; 
 Got front & popped:{
 Found empty stack, pushing:{
 New currentToken after empty push:GET
 Found GET, popping:( A ) ;Got front & popped:GET
-Found GET, popping:( B ) ;Got front & popped:IF
-Entering generateQuads, popVec contains:B,>,A,
-Finished generateQuads, prevOperator set:(
-Entering generateQuads, popVec contains:5,=,X,
+Found GET, popping:( B ) ;Got front & popped:X
+Inside NotOperator if, pushing nonoperator into PDA:X
+Entering generateQuads, popVec contains:B,-,A,
+Finished generateQuads, prevOperator set:=
+genQuads returned a Temp,T1 pushing into stack
+Inside >, prevOperatorNum:1, currentNum:0
+topStack:T1
+Building popVector for quads
+Pushing to popVec:T1
+Popping from stackT1
+New popToken:=
+Building popVector for quads
+Found operator:=
+Pushing to popVec:=
+Popping from stack=
+New popToken:X
+Building popVector for quads
+Pushing to popVec:X
+Popping from stackX
+New popToken:{
+Entering generateQuads, popVec contains:T1,=,X,
 Finished generateQuads, prevOperator set:{
-Entering generateQuads, popVec contains:N,<,B,
-Finished generateQuads, prevOperator set:(
-Entering generateQuads, popVec contains:100,=,X,
+Entering generateQuads, popVec contains:B,+,A,
+Finished generateQuads, prevOperator set:=
+genQuads returned a Temp,T3 pushing into stack
+Inside >, prevOperatorNum:1, currentNum:0
+topStack:T3
+Building popVector for quads
+Pushing to popVec:T3
+Popping from stackT3
+New popToken:=
+Building popVector for quads
+Found operator:=
+Pushing to popVec:=
+Popping from stack=
+New popToken:Y
+Building popVector for quads
+Pushing to popVec:Y
+Popping from stackY
+New popToken:{
+Entering generateQuads, popVec contains:T3,=,Y,
 Finished generateQuads, prevOperator set:{
-Entering generateQuads, popVec contains:50,=,X,
+Entering generateQuads, popVec contains:B,*,A,
+Finished generateQuads, prevOperator set:=
+genQuads returned a Temp,T5 pushing into stack
+Inside >, prevOperatorNum:1, currentNum:0
+topStack:T5
+Building popVector for quads
+Pushing to popVec:T5
+Popping from stackT5
+New popToken:=
+Building popVector for quads
+Found operator:=
+Pushing to popVec:=
+Popping from stack=
+New popToken:Z
+Building popVector for quads
+Pushing to popVec:Z
+Popping from stackZ
+New popToken:{
+Entering generateQuads, popVec contains:T5,=,Z,
 Finished generateQuads, prevOperator set:{
-Got front & popped:}
+Entering generateQuads, popVec contains:B,/,A,
+Finished generateQuads, prevOperator set:=
+genQuads returned a Temp,T7 pushing into stack
+Inside >, prevOperatorNum:1, currentNum:0
+topStack:T7
+Building popVector for quads
+Pushing to popVec:T7
+Popping from stackT7
+New popToken:=
+Building popVector for quads
+Found operator:=
+Pushing to popVec:=
+Popping from stack=
+New popToken:F
+Building popVector for quads
+Pushing to popVec:F
+Popping from stackF
+New popToken:{
+Entering generateQuads, popVec contains:T7,=,F,
+Finished generateQuads, prevOperator set:{
+Got front & popped:PUT
+Found PUT, popping:( Y ) ;Got front & popped:PUT
+Found PUT, popping:( Z ) ;Got front & popped:PUT
+Found PUT, popping:( F ) ;Got front & popped:}
