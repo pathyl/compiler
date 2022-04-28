@@ -12,5 +12,7 @@ int main(){
     cout << "Syntax finished - quads generated" << endl;
     CodeGeneratorMain();
     cout << "codegen finished - assembly generated" << endl;
+    cout << "Compile: nasm -f elf64 myAssembly.asm -o myAssembly.o" << endl;
+    cout << "Link: ld -o myAssembly myAssembly.o" << endl;
     return 0;
 }
