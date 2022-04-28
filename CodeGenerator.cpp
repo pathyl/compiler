@@ -139,21 +139,19 @@ void CodeGeneratorMain(){
         currQuad = quadDeque.front();
         quadDeque.pop_front();
         k = -1;
-        for (int i = 0; i < OPCODES_size; i++)
-            {
-                if (OPCODES[i] == currQuad.quad1)
-                {
+        for (int i = 0; i < OPCODES_size; i++){
+                if (OPCODES[i] == currQuad.quad1){
                     k = i;
                 }
             }
-            if(isdigit(currQuad.quad2[0])){
-                line = "lit" + currQuad.quad2;
-                currQuad.quad2 = line;
-            }
-            if(isdigit(currQuad.quad3[0])){
-                line = "lit" + currQuad.quad3;
-                currQuad.quad3 = line;
-            }
+        if(isdigit(currQuad.quad2[0])){
+            line = "lit" + currQuad.quad2;
+            currQuad.quad2 = line;
+        }
+        if(isdigit(currQuad.quad3[0])){
+            line = "lit" + currQuad.quad3;
+            currQuad.quad3 = line;
+        }
 
         switch(k){
             //= 

@@ -13,7 +13,7 @@ const string OPERATORS[] = {"<semi>", "<assign>", "<addop>", "$LP", "$RP", "<mop
 const int OPERATORS_SIZE = 16;
 const int PREC_TABLE_ROWS = 16;
 const int PREC_TABLE_COLS = 16;
-//track labels and temporrary vars
+//track labels and temporary vars
 int Tvar = 1;
 int Lvar = 1;
 int Wvar = 1;
@@ -250,8 +250,6 @@ void SyntaxMain(){
         debugInfo << "Popping Class2:" << tokenDeque.front().tokenSymbol << endl;
         tokenDeque.pop_front(); // pop pgmName
     }
-
-
     // erase CONST ---------; and VAR ---------; these are already put into the symbol table during lexical analysis.
     for (int i = 0; i < tokenDeque.size(); i++){
         if (tokenDeque.at(i).tokenClass == "$CONST" || tokenDeque.at(i).tokenClass == "$VAR"){
