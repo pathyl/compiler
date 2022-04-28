@@ -215,12 +215,21 @@ public:
         outputDiagnostic << endl;
         cout << "\n";
 
-        sourceFile.open(sourceFileName, fstream::in);
+        //clear the old files
         outputTokenList.open("tokenlist.txt", fstream::out);
         outputTokenList << "Symbol|Class\n";
+        outputTokenList.close();
         outputSymbolTable.open("symboltable.txt", fstream::out);
         outputSymbolTable << "Num|Symbol|Class|Value|Address|Segment\n";
         outputSymbolTable.close();
+   
+        try{
+            sourceFile.open(sourceFileName, fstream::in);
+        }catch(const fstream::failure& e){
+            cout << "ERROR Could not open source file!" << endl;
+            return;
+        }
+        outputTokenList.open("tokenlist.txt", fstream::app);
         outputDiagnostic.open("outputDiagnostic.txt", fstream::out);
 		int nextState = 0;
      /* 0Start
