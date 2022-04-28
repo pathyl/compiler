@@ -48,6 +48,7 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
+	lit50	DW	50
 	lit100	DW	100
 	lit5	DW	5
 	N	DW	87
@@ -94,8 +95,16 @@ _start:	nop
 	mov [X], ax
 	jmp _E1
 _L1:	nop
+	mov ax, [B]
+	cmp ax, [N]
+	jge _L2
 	mov ax, [lit100]
 	mov [X], ax
+	jmp _E2
+_L2:	nop
+	mov ax, [lit50]
+	mov [X], ax
+_E2:	nop
 _E1:	nop
 	mov ax, [X]
 	call ConvertIntegerToString
@@ -121,7 +130,7 @@ fini:   nop
 ; Registers destroyed: none
 ;
 ;PrintString     PROC
-PrintString:    nop
+PrintString:
 	push    ax              ;Save registers;
 	push    dx
 ; subpgm:
@@ -154,7 +163,7 @@ PrintString:    nop
 ;
 ;GetAnInteger    PROC
 
-GetAnInteger:   nop	;Get an integer as a string
+GetAnInteger:	;Get an integer as a string
 	;get response
 	mov eax,3	;read
 	mov ebx,2	;device
@@ -169,7 +178,7 @@ GetAnInteger:   nop	;Get an integer as a string
 	mov ecx, num
 	int 80h
 
-ConvertStringToInteger: nop
+ConvertStringToInteger:
 	mov ax,0	;hold integer
 	mov [ReadInt],ax ;initialize 16 bit number to zero
 	mov ecx,num	;pt - 1st or next digit of number as a string 
@@ -190,8 +199,7 @@ Next:	sub bl,'0'	;convert character to number
 	cmp bl,0xA	;is it a <lf>
 	jne Next	; get next digit  
 	ret
-
-PutInteger: nop
+PutInteger:
 
 	push ax
 	push dx
@@ -222,10 +230,10 @@ PutInteger: nop
 ;
 ;ConvertIntegerToString PROC
 
-ConvertIntegerToString: nop
+ConvertIntegerToString:
 	mov ebx, ResultValue + 4   ;Store the integer as a five
 	                    ;digit char string at Result for printing
-ConvertLoop:    nop
+ConvertLoop:
 	sub dx,dx  ; repeatedly divide dx:ax by 10 to obtain last digit of number
 	mov cx,10  ; as the remainder in the DX register.  Quotient in AX.
 	div cx

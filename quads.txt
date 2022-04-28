@@ -5,6 +5,12 @@ GET,B,null,null
 =,X,5,null
 jmp,_E1,null,null
 <label>,_L1,null,null
+<,B,N,null
+<fixlabel>,_L2,null,null
 =,X,100,null
+jmp,_E2,null,null
+<label>,_L2,null,null
+=,X,50,null
+<label>,_E2,null,null
 <label>,_E1,null,null
 PUT,X,null,null

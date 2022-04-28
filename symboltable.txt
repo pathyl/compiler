@@ -6,3 +6,4 @@ Num|Symbol|Class|Value|Address|Segment
 4|X|<var>|?|6|DS
 5|5|$NUMLIT|5|8|DS
 6|100|$NUMLIT|100|10|DS
+7|50|$NUMLIT|50|12|DS

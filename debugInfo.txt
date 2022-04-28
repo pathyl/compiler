@@ -15,6 +15,10 @@ Entering generateQuads, popVec contains:B,>,A,
 Finished generateQuads, prevOperator set:(
 Entering generateQuads, popVec contains:5,=,X,
 Finished generateQuads, prevOperator set:{
+Entering generateQuads, popVec contains:N,<,B,
+Finished generateQuads, prevOperator set:(
 Entering generateQuads, popVec contains:100,=,X,
+Finished generateQuads, prevOperator set:{
+Entering generateQuads, popVec contains:50,=,X,
 Finished generateQuads, prevOperator set:{
 Got front & popped:}

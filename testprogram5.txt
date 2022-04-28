@@ -8,7 +8,11 @@ CLASS PGM1{
 	IF(A > B)THEN{
 		X = 5;
 	}ELSE{
-		X = 100;
+		IF (B < N)THEN{
+			X = 100;
+		}ELSE{
+			X = 50;
+		}
 	}
 
 	PUT(X);
