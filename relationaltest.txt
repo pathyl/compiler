@@ -1,0 +1,46 @@
+CLASS relational{
+	CONST Y = 1, Z = 0;
+	VAR A, B;
+	GET(A);
+	GET(B);
+	/* Gets A and B from the user, checks A against B using all relational operators and puts 1 if true, 0 if false */
+	
+	IF(A > B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+	
+	IF(A >= B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+	
+	IF(A == B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+
+	IF(A != B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+	
+	IF(A < B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+
+	IF(A <= B)THEN{
+		PUT(Y);
+	}ELSE{
+		PUT(Z);
+	}
+	
+	
+		
+}

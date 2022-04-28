@@ -3,7 +3,8 @@ CLASS NESTED{
 	VAR A, B;
 	GET(A);
 	GET(B);
-	
+	/* Gets A and B from the user, if A is less than 10 and B is less or equal to 10, increments A to 10 and B to 11, outputs A then B */
+
 	WHILE(A < N)DO{
 		A = A + 1;
 		WHILE(B <= N)DO{

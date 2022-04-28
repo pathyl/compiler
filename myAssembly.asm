@@ -1,23 +1,3 @@
-;david@ubuntu:~$ nasm -f elf64 PgmIO1.asm -o PgmIO1.o
-;david@ubuntu:~$ ld -o PgmIO1 PgmIO1.o
-;david@ubuntu:~$ ./PgmIO1
-;Enter an integer(less than 32,765): 4
-;4
-;Enter an integer(less than 32,765): 5
-;5
-;Ans = 00039
-
-
-	;PgmIO1.asm - IO1NasmLinux32.asm
-	;
-        ;assemble:	nasm -f elf -l IO1Nasm32Linux.lst  IO1Nasm32Linux.asm
-        ;link:  	gcc -o IO1Nasm32Linux  IO1Nasm32Linux.o
-        ;run:           ./IO1Nasm32Linux
-	;
-        ;For 64 bit Linux linkage
-        ;nasm -f elf64 PGMIO1.asm -o PgmIO1.o   
-        ;ld -o PgmIO1 PgmIO1.o
-        ;./PgmIO1
 
 sys_exit	equ	1
 sys_read	equ	3
@@ -48,9 +28,8 @@ section .data		;used to declare constants
 	numEnd		equ	$-num
 
 ;Begin adding constants
-	lit4	DW	4
-	lit2	DW	2
-	lit10	DW	10
+	Z	DW	0
+	Y	DW	1
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -74,66 +53,90 @@ section	.bss		;used to declare uninitialized variables
 	global _start   ;main program
 
 ;Begin adding vars
-	ans	RESW	1
-	Jane	RESW	1
-	Bob	RESW	1
-	c	RESW	1
-	b	RESW	1
-	a	RESW	1
+	B	RESW	1
+	A	RESW	1
 section .text
 _start:	nop
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [a], ax
+	mov [A], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [b], ax
-	call PrintString
-	call GetAnInteger
-	mov ax,[ReadInt]
-	mov [c], ax
-	call PrintString
-	call GetAnInteger
-	mov ax,[ReadInt]
-	mov [Bob], ax
-	call PrintString
-	call GetAnInteger
-	mov ax,[ReadInt]
-	mov [Jane], ax
-	mov ax, [Jane]
-	sub ax, [lit10]
-	mov [T1], ax
-	mov ax, [Bob]
-	add ax, [T1]
-	mov [T2], ax
-	mov ax, [lit2]
-	mov bx, [lit4]
-	mul bx
-	mov [T3], ax
-	mov dx, 0
-	mov ax, [T2]
-	mov bx, [T3]
-	div bx
-	mov [T4], ax
-	mov ax, [b]
-	add ax, [c]
-	mov [T5], ax
-	mov dx, 0
-	mov ax, [T4]
-	mov bx, [T5]
-	div bx
-	mov [T6], ax
-	mov ax, [a]
-	mov bx, [T6]
-	mul bx
-	mov [T7], ax
-	mov ax, [T7]
-	mov [ans], ax
-	mov ax, [ans]
+	mov [B], ax
+	mov ax, [A]
+	cmp ax, [B]
+	jle _L1
+	mov ax, [Y]
 	call ConvertIntegerToString
 	call PutInteger
+	jmp _E1
+_L1:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E1:	nop
+	mov ax, [A]
+	cmp ax, [B]
+	jl _L2
+	mov ax, [Y]
+	call ConvertIntegerToString
+	call PutInteger
+	jmp _E2
+_L2:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E2:	nop
+	mov ax, [A]
+	cmp ax, [B]
+	jne _L3
+	mov ax, [Y]
+	call ConvertIntegerToString
+	call PutInteger
+	jmp _E3
+_L3:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E3:	nop
+	mov ax, [A]
+	cmp ax, [B]
+	je _L4
+	mov ax, [Y]
+	call ConvertIntegerToString
+	call PutInteger
+	jmp _E4
+_L4:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E4:	nop
+	mov ax, [A]
+	cmp ax, [B]
+	jge _L5
+	mov ax, [Y]
+	call ConvertIntegerToString
+	call PutInteger
+	jmp _E5
+_L5:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E5:	nop
+	mov ax, [A]
+	cmp ax, [B]
+	jg _L6
+	mov ax, [Y]
+	call ConvertIntegerToString
+	call PutInteger
+	jmp _E6
+_L6:	nop
+	mov ax, [Z]
+	call ConvertIntegerToString
+	call PutInteger
+_E6:	nop
 ;**************************
 	
 ; exit code
@@ -142,24 +145,9 @@ fini:   nop
 	xor ebx,ebx	;successfully, zero in ebx indicates success
 	int 80h
 
-;	ENDP main
-
-;
-;       Subroutine to print a string on the display
-;
-; Input:
-;       DS:BX = pointer to the string to print
-;
-; Output: None
-;
-; Registers destroyed: none
-;
-;PrintString     PROC
 PrintString:
 	push    ax              ;Save registers;
 	push    dx
-; subpgm:
-	; prompt user	
 	mov eax, 4		;Linux print device register conventions
 	mov ebx, 1		; print default output device
 	mov ecx, userMsg	; pointer to string
@@ -168,25 +156,6 @@ PrintString:
 	pop     dx              ;Restore registers.
 	pop     ax
 	ret
-;PrintString     ENDP
-
-;%NEWPAGE
-
-;
-
-; Subroutine to get an integer (character string) from the keyboard buffer
-;    and convert it to a 16 bit binary number.
-;
-; Input: none
-;
-; Output: The integer is returned in the AX register as well as the global
-;         variable ReadInt .
-;
-; Registers Destroyed: AX, BX, CX, DX, SI
-;
-; Globals Destroyed: ReadInt, TempChar, tempint, negflag
-;
-;GetAnInteger    PROC
 
 GetAnInteger:	;Get an integer as a string
 	;get response
@@ -237,24 +206,6 @@ PutInteger:
 	pop dx
 	ret
 
-
-
-;ENDP GetAnInteg;
-;%NEWPAGE;
-; Subroutine to convert a 16 bit integer to a text string
-;
-; input:
-;       AX = number to convert
-;       DS:BX = pointer to end of string to store text
-;       CX = number of digits to convert
-;
-; output: none
-;
-; Registers destroyed: AX, BX, CX, DX, SI
-; Globals destroyed negflag 
-;
-;ConvertIntegerToString PROC
-
 ConvertIntegerToString:
 	mov ebx, ResultValue + 4   ;Store the integer as a five
 	                    ;digit char string at Result for printing
@@ -268,5 +219,5 @@ ConvertLoop:
 	cmp ebx,ResultValue
 	jge ConvertLoop
 	ret
-;ConvertIntegerToString  ENDP
+
 

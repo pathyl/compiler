@@ -3,6 +3,7 @@ CLASS NESTED{
 	GET(A);
 	GET(B);
 	GET(C);
+	/* Gets 3 integers from the user and returns the largest one */
 	
 	IF(A > B)THEN{
 		IF(A > C)THEN{

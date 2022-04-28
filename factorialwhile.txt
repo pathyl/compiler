@@ -3,6 +3,7 @@ CLASS FACTORIAL{
 	N = 1;
 	GET(X);
 	fact = X;
+	/* Gets a var X from the user and returns X! */
 	WHILE(N < fact)DO{
 		X = X * N;
 		N = N + 1;

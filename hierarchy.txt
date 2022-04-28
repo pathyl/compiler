@@ -1,4 +1,4 @@
-CLASS PGM1{
+CLASS hierarchy{
 	VAR a, b, c, Bob, Jane, ans;
 
 	GET(a);
@@ -7,7 +7,7 @@ CLASS PGM1{
 	GET(Bob);
 	GET(Jane);
 
-
+	/* From the tranlator lab to test order of operations */
 	ans = a * ((Bob + Jane -10) /2 * 4)/ (b + c);
 
 	PUT(ans);
