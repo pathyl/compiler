@@ -1,19 +1,30 @@
 CLASS NESTED{
-	CONST N = 10;
-	VAR A, B;
+	CONST M = 25, N = 26, O = 27, P = 28;
+	VAR A, B, C, D;
 	GET(A);
 	GET(B);
-	/* Gets A and B from the user, if A is less than 10 and B is less or equal to 10, increments A to 10 and B to 11, outputs A then B */
+	GET(C);
+	GET(D);
 
-	WHILE(A < N)DO{
+	/* Get 4 integers less than 25,26,27,28 from the user, increment them all until they are 25,26,27,28 and output */
+
+	WHILE(A < M)DO{
 		A = A + 1;
-		WHILE(B <= N)DO{
+		WHILE(B < N)DO{
 			B = B + 1;
+			WHILE(C < O)DO{
+				C = C + 1;
+					WHILE(D < P)DO{
+						D = D + 1;
+					}
+			}
 		}
-	}
 
+	}
+	
 	PUT(A);
 	PUT(B);
-	
+	PUT(C);
+	PUT(D);
 		
 }

@@ -1,195 +1,175 @@
 dequebuilder pushed:CLASS|$CLASS
-dequebuilder pushed:relational|<var>
+dequebuilder pushed:hierarchy|<var>
 dequebuilder pushed:{|$LB
-dequebuilder pushed:CONST|$CONST
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:=|<assign>
-dequebuilder pushed:1|<integer>
-dequebuilder pushed:,|<comma>
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:=|<assign>
-dequebuilder pushed:0|<integer>
-dequebuilder pushed:;|<semi>
 dequebuilder pushed:VAR|$VAR
-dequebuilder pushed:A|<var>
+dequebuilder pushed:a|<var>
 dequebuilder pushed:,|<comma>
-dequebuilder pushed:B|<var>
+dequebuilder pushed:b|<var>
+dequebuilder pushed:,|<comma>
+dequebuilder pushed:c|<var>
+dequebuilder pushed:,|<comma>
+dequebuilder pushed:Bob|<var>
+dequebuilder pushed:,|<comma>
+dequebuilder pushed:Jane|<var>
+dequebuilder pushed:,|<comma>
+dequebuilder pushed:ans|<var>
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
+dequebuilder pushed:a|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:B|<var>
+dequebuilder pushed:b|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
-dequebuilder pushed:IF|$IF
+dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:>|<relop>
-dequebuilder pushed:B|<var>
+dequebuilder pushed:c|<var>
 dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
+dequebuilder pushed:;|<semi>
+dequebuilder pushed:GET|<var>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:Bob|<var>
+dequebuilder pushed:)|$RP
+dequebuilder pushed:;|<semi>
+dequebuilder pushed:GET|<var>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:Jane|<var>
+dequebuilder pushed:)|$RP
+dequebuilder pushed:;|<semi>
+dequebuilder pushed:ans|<var>
+dequebuilder pushed:=|<assign>
+dequebuilder pushed:a|<var>
+dequebuilder pushed:*|<mop>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:(|$LP
+dequebuilder pushed:Bob|<var>
+dequebuilder pushed:+|<addop>
+dequebuilder pushed:Jane|<var>
+dequebuilder pushed:-|<addop>
+dequebuilder pushed:10|<integer>
+dequebuilder pushed:)|$RP
+dequebuilder pushed:/|<mop>
+dequebuilder pushed:2|<integer>
+dequebuilder pushed:*|<mop>
+dequebuilder pushed:4|<integer>
+dequebuilder pushed:)|$RP
+dequebuilder pushed:/|<mop>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:b|<var>
+dequebuilder pushed:+|<addop>
+dequebuilder pushed:c|<var>
+dequebuilder pushed:)|$RP
+dequebuilder pushed:;|<semi>
 dequebuilder pushed:PUT|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
+dequebuilder pushed:ans|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:IF|$IF
-dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:>=|<relop>
-dequebuilder pushed:B|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:IF|$IF
-dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:==|<relop>
-dequebuilder pushed:B|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:IF|$IF
-dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:!=|<relop>
-dequebuilder pushed:B|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:IF|$IF
-dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:<|<relop>
-dequebuilder pushed:B|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:IF|$IF
-dequebuilder pushed:(|$LP
-dequebuilder pushed:A|<var>
-dequebuilder pushed:<=|<relop>
-dequebuilder pushed:B|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:THEN|$THEN
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Y|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:ELSE|$ELSE
-dequebuilder pushed:{|$LB
-dequebuilder pushed:PUT|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Z|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:}|$RB
-dequebuilder pushed:}|$RB
 Popping Class:$CLASS
-Popping Class2:relational
-Found CONST/VAR line:$CONST <var> <assign> <integer> <comma> <var> <assign> <integer> <semi> 
-Deleting from:$CONST to <semi>
-Full line to erase:CONST Y = 1 , Z = 0 ; 
-Found CONST/VAR line:$VAR <var> <comma> <var> <semi> 
+Popping Class2:hierarchy
+Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <semi> 
 Deleting from:$VAR to <semi>
-Full line to erase:VAR A , B ; 
+Full line to erase:VAR a , b , c , Bob , Jane , ans ; 
 Got front & popped:{
 Got front & popped:GET
-Got front & popped:IF
-Entering generateQuads, popVec contains:B,>,A,
+Got front & popped:GET
+Got front & popped:GET
+Got front & popped:GET
+Got front & popped:ans
+Entering generateQuads, popVec contains:10,-,Jane,
+Finished generateQuads, prevOperator set:+
+genQuads returned a Temp,T1 pushing into stack
+going to checkAfterQuadGen
+Inside >, prevOperatorNum:2, currentNum:4
+topStack:T1
+Building popVector for quads
+Pushing to popVec:T1
+Popping from stackT1
+New popToken:+
+Building popVector for quads
+Found operator:+
+Pushing to popVec:+
+Popping from stack+
+New popToken:Bob
+Building popVector for quads
+Pushing to popVec:Bob
+Popping from stackBob
+New popToken:(
+Entering generateQuads, popVec contains:T1,+,Bob,
 Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
-Entering generateQuads, popVec contains:B,>=,A,
+genQuads returned a Temp,T2 pushing into stack
+going to ShedParen
+Got front & popped:/
+Entering generateQuads, popVec contains:4,*,2,
+Finished generateQuads, prevOperator set:/
+genQuads returned a Temp,T3 pushing into stack
+going to checkAfterQuadGen
+Inside >, prevOperatorNum:5, currentNum:4
+topStack:T3
+Building popVector for quads
+Pushing to popVec:T3
+Popping from stackT3
+New popToken:/
+Building popVector for quads
+Found operator:/
+Pushing to popVec:/
+Popping from stack/
+New popToken:T2
+Building popVector for quads
+Pushing to popVec:T2
+Popping from stackT2
+New popToken:(
+Entering generateQuads, popVec contains:T3,/,T2,
 Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
-Entering generateQuads, popVec contains:B,==,A,
+genQuads returned a Temp,T4 pushing into stack
+going to ShedParen
+Got front & popped:/
+Entering generateQuads, popVec contains:c,+,b,
 Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
-Entering generateQuads, popVec contains:B,!=,A,
-Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
-Entering generateQuads, popVec contains:B,<,A,
-Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
-Entering generateQuads, popVec contains:B,<=,A,
-Finished generateQuads, prevOperator set:(
-Got front & popped:}
-Got front & popped:}
+genQuads returned a Temp,T5 pushing into stack
+going to ShedParen
+Got front & popped:;
+Entering generateQuads, popVec contains:T5,/,T4,
+Finished generateQuads, prevOperator set:*
+genQuads returned a Temp,T6 pushing into stack
+going to checkAfterQuadGen
+Inside >, prevOperatorNum:5, currentNum:0
+topStack:T6
+Building popVector for quads
+Pushing to popVec:T6
+Popping from stackT6
+New popToken:*
+Building popVector for quads
+Found operator:*
+Pushing to popVec:*
+Popping from stack*
+New popToken:a
+Building popVector for quads
+Pushing to popVec:a
+Popping from stacka
+New popToken:=
+Entering generateQuads, popVec contains:T6,*,a,
+Finished generateQuads, prevOperator set:=
+genQuads returned a Temp,T7 pushing into stack
+going to checkAfterQuadGen
+Inside >, prevOperatorNum:1, currentNum:0
+topStack:T7
+Building popVector for quads
+Pushing to popVec:T7
+Popping from stackT7
+New popToken:=
+Building popVector for quads
+Found operator:=
+Pushing to popVec:=
+Popping from stack=
+New popToken:ans
+Building popVector for quads
+Pushing to popVec:ans
+Popping from stackans
+New popToken:{
+Entering generateQuads, popVec contains:T7,=,ans,
+Finished generateQuads, prevOperator set:{
+Tokenstack empty

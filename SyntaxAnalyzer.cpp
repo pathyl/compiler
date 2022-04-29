@@ -552,10 +552,8 @@ void SyntaxMain(){
             if (prevOperator.tokenClass == "$WHILE" && currentToken.tokenClass == "$DO"){
                 // when this happens we have popped the boolean expression for WHILE and need to generate the label to exit WHILE.
                 // jmp E# as DO is placed into the stack
-                cout << "WHILEDO handler pushing:" << currentToken.tokenSymbol << endl;
                 tokenStack.push(currentToken);
                 prevOperator = tokenStack.top();
-                cout << "WHILEDO new prevOp:" << prevOperator.tokenSymbol << endl;
                 prevOperatorNum = prevOperator.tokenClassToNum();
 
                 outputQuads.open("quads.txt", fstream::app);
