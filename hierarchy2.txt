@@ -1,0 +1,14 @@
+CLASS hierarchy{
+	VAR a, b, c, Bob, Jane, ans;
+
+	GET(a);
+	GET(b);
+	GET(c);
+	GET(Bob);
+	GET(Jane);
+
+	/* From the tranlator lab to test order of operations */
+	ans = a * (2 * (Bob + Jane -10) /2 * 4) + 4/ (b + c) - 1 * 1;
+
+	PUT(ans);
+}

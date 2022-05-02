@@ -26,7 +26,7 @@ public:
     string tokenSymbol;
     string tokenClass;
 
-    // takes a token and returns the row or col num it corresponds to in our operator precedence table.
+    // takes a token and returns the row/col num it corresponds to in our operator precedence table.
     int tokenClassToNum(){
         string tmpClass = tokenClass;
         for (int i = 0; i < OPERATORS_SIZE; i++){
@@ -146,7 +146,7 @@ Token generateQuads(vector<Token> popVec){
                 break;
             case 8: // ELSE handled in = precedence
                 break;
-            case 9: // ODD quad ODD, A, null, null. vec is A, ODD
+            case 9: // ODD quad ODD, A, null, null. vec is A, ODD (not implemented in code generation do not use)
                 opQuad = popVec.at(1);
                 quad2 = popVec.at(0);
                 quad3.tokenSymbol = "null";
@@ -383,7 +383,7 @@ void SyntaxMain(){
             if (tempToken.tokenClass != "null"){
                 debugInfo << "genQuads returned a Temp," + tempToken.tokenSymbol + " pushing into stack" << endl;
                 tokenStack.push(tempToken);
-                if(prevOperator.tokenClass == "$LP"){
+                if(prevOperator.tokenClass == "$LP" && tokenDeque.front().tokenClass == "$RP"){
                     debugInfo << "going to ShedParen" << endl;
                     debugInfo.close();
                     goto ShedParen;
@@ -397,25 +397,27 @@ void SyntaxMain(){
                 goto SkipWhile;
             }
             goto checkAfterQuadGen;
-        
-
-            
         }
         else if (operatorPrecedenceTable[prevOperatorNum][currentNum] == '='){
             // We've completed a (---) or {---} or IF THEN ELSE or WHILE DO
             //  ( = )
             if (prevOperator.tokenClass == "$LP" && currentToken.tokenClass == "$RP"){
                 ShedParen:
+                debugInfo.open("debugInfo.txt", fstream::app);
                 if(tokenStack.top().tokenSymbol[0] == 'T'){
                     //this is a T var that was pushed, we need to save and get the operator
+                    debugInfo << "LPRP Temp T:" << tokenStack.top().tokenSymbol << endl;
                     tempToken = tokenStack.top();
                     //pop T var
                     tokenStack.pop();
                     //pop $LP
+                    debugInfo << "LPRP LP:" << tokenStack.top().tokenSymbol << endl;
                     tokenStack.pop();
+                    debugInfo << "LPRP Temp prevop:" << tokenStack.top().tokenSymbol << endl;
                     prevOperator = tokenStack.top();
                     //if currentToken is an operator other than $LP, then we still have things to do, if prevOperator is an operator other than (, we have things to do in that direction.
                     //linux prefers this for some reason
+                    debugInfo.close();
                     int i = currentToken.tokenClassToNum();
                     if(i != -1 && i != 3){
                         //push T var

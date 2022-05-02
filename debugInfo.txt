@@ -1,66 +1,59 @@
 dequebuilder pushed:CLASS|$CLASS
-dequebuilder pushed:hierarchy|<var>
+dequebuilder pushed:PGM1|<var>
 dequebuilder pushed:{|$LB
 dequebuilder pushed:VAR|$VAR
-dequebuilder pushed:a|<var>
+dequebuilder pushed:A|<var>
 dequebuilder pushed:,|<comma>
-dequebuilder pushed:b|<var>
+dequebuilder pushed:B|<var>
 dequebuilder pushed:,|<comma>
-dequebuilder pushed:c|<var>
+dequebuilder pushed:C|<var>
 dequebuilder pushed:,|<comma>
-dequebuilder pushed:Bob|<var>
-dequebuilder pushed:,|<comma>
-dequebuilder pushed:Jane|<var>
+dequebuilder pushed:D|<var>
 dequebuilder pushed:,|<comma>
 dequebuilder pushed:ans|<var>
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:a|<var>
+dequebuilder pushed:A|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:b|<var>
+dequebuilder pushed:B|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:c|<var>
+dequebuilder pushed:C|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:GET|<var>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:Bob|<var>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:;|<semi>
-dequebuilder pushed:GET|<var>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Jane|<var>
+dequebuilder pushed:D|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:ans|<var>
 dequebuilder pushed:=|<assign>
-dequebuilder pushed:a|<var>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:A|<var>
+dequebuilder pushed:-|<addop>
+dequebuilder pushed:B|<var>
+dequebuilder pushed:)|$RP
 dequebuilder pushed:*|<mop>
 dequebuilder pushed:(|$LP
-dequebuilder pushed:(|$LP
-dequebuilder pushed:Bob|<var>
-dequebuilder pushed:+|<addop>
-dequebuilder pushed:Jane|<var>
+dequebuilder pushed:C|<var>
+dequebuilder pushed:*|<mop>
+dequebuilder pushed:D|<var>
 dequebuilder pushed:-|<addop>
-dequebuilder pushed:10|<integer>
+dequebuilder pushed:1|<integer>
+dequebuilder pushed:*|<mop>
+dequebuilder pushed:2|<integer>
 dequebuilder pushed:)|$RP
+dequebuilder pushed:+|<addop>
+dequebuilder pushed:(|$LP
+dequebuilder pushed:4|<integer>
 dequebuilder pushed:/|<mop>
 dequebuilder pushed:2|<integer>
-dequebuilder pushed:*|<mop>
-dequebuilder pushed:4|<integer>
-dequebuilder pushed:)|$RP
-dequebuilder pushed:/|<mop>
-dequebuilder pushed:(|$LP
-dequebuilder pushed:b|<var>
-dequebuilder pushed:+|<addop>
-dequebuilder pushed:c|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
 dequebuilder pushed:PUT|<var>
@@ -68,90 +61,71 @@ dequebuilder pushed:(|$LP
 dequebuilder pushed:ans|<var>
 dequebuilder pushed:)|$RP
 dequebuilder pushed:;|<semi>
+dequebuilder pushed:}|$RB
 Popping Class:$CLASS
-Popping Class2:hierarchy
-Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <semi> 
+Popping Class2:PGM1
+Found CONST/VAR line:$VAR <var> <comma> <var> <comma> <var> <comma> <var> <comma> <var> <semi> 
 Deleting from:$VAR to <semi>
-Full line to erase:VAR a , b , c , Bob , Jane , ans ; 
+Full line to erase:VAR A , B , C , D , ans ; 
 Got front & popped:{
 Got front & popped:GET
 Got front & popped:GET
 Got front & popped:GET
-Got front & popped:GET
 Got front & popped:ans
-Entering generateQuads, popVec contains:10,-,Jane,
-Finished generateQuads, prevOperator set:+
+Entering generateQuads, popVec contains:B,-,A,
+Finished generateQuads, prevOperator set:(
 genQuads returned a Temp,T1 pushing into stack
 going to checkAfterQuadGen
-Inside >, prevOperatorNum:2, currentNum:4
-topStack:T1
-Building popVector for quads
-Pushing to popVec:T1
-Popping from stackT1
-New popToken:+
-Building popVector for quads
-Found operator:+
-Pushing to popVec:+
-Popping from stack+
-New popToken:Bob
-Building popVector for quads
-Pushing to popVec:Bob
-Popping from stackBob
-New popToken:(
-Entering generateQuads, popVec contains:T1,+,Bob,
+LPRP Temp T:T1
+LPRP LP:(
+LPRP Temp prevop:=
+Got front & popped:*
+Entering generateQuads, popVec contains:D,*,C,
 Finished generateQuads, prevOperator set:(
 genQuads returned a Temp,T2 pushing into stack
-going to ShedParen
-Got front & popped:/
-Entering generateQuads, popVec contains:4,*,2,
-Finished generateQuads, prevOperator set:/
+going to checkAfterQuadGen
+Got front & popped:1
+Entering generateQuads, popVec contains:2,*,1,
+Finished generateQuads, prevOperator set:-
 genQuads returned a Temp,T3 pushing into stack
 going to checkAfterQuadGen
-Inside >, prevOperatorNum:5, currentNum:4
+Inside >, prevOperatorNum:2, currentNum:4
 topStack:T3
 Building popVector for quads
 Pushing to popVec:T3
 Popping from stackT3
-New popToken:/
+New popToken:-
 Building popVector for quads
-Found operator:/
-Pushing to popVec:/
-Popping from stack/
+Found operator:-
+Pushing to popVec:-
+Popping from stack-
 New popToken:T2
 Building popVector for quads
 Pushing to popVec:T2
 Popping from stackT2
 New popToken:(
-Entering generateQuads, popVec contains:T3,/,T2,
+Entering generateQuads, popVec contains:T3,-,T2,
 Finished generateQuads, prevOperator set:(
 genQuads returned a Temp,T4 pushing into stack
-going to ShedParen
-Got front & popped:/
-Entering generateQuads, popVec contains:c,+,b,
-Finished generateQuads, prevOperator set:(
+going to checkAfterQuadGen
+LPRP Temp T:T4
+LPRP LP:(
+LPRP Temp prevop:*
+Got front & popped:+
+Entering generateQuads, popVec contains:T4,*,T1,
+Finished generateQuads, prevOperator set:=
 genQuads returned a Temp,T5 pushing into stack
-going to ShedParen
-Got front & popped:;
-Entering generateQuads, popVec contains:T5,/,T4,
-Finished generateQuads, prevOperator set:*
+going to checkAfterQuadGen
+Got front & popped:(
+Entering generateQuads, popVec contains:2,/,4,
+Finished generateQuads, prevOperator set:(
 genQuads returned a Temp,T6 pushing into stack
 going to checkAfterQuadGen
-Inside >, prevOperatorNum:5, currentNum:0
-topStack:T6
-Building popVector for quads
-Pushing to popVec:T6
-Popping from stackT6
-New popToken:*
-Building popVector for quads
-Found operator:*
-Pushing to popVec:*
-Popping from stack*
-New popToken:a
-Building popVector for quads
-Pushing to popVec:a
-Popping from stacka
-New popToken:=
-Entering generateQuads, popVec contains:T6,*,a,
+LPRP Temp T:T6
+LPRP LP:(
+LPRP Temp prevop:+
+Got front & popped:;
+Entering generateQuads, popVec contains:T6,+,T5,
 Finished generateQuads, prevOperator set:=
 genQuads returned a Temp,T7 pushing into stack
 going to checkAfterQuadGen
@@ -172,4 +146,4 @@ Popping from stackans
 New popToken:{
 Entering generateQuads, popVec contains:T7,=,ans,
 Finished generateQuads, prevOperator set:{
-Tokenstack empty
+Got front & popped:}

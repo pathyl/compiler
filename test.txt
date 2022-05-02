@@ -1,0 +1,14 @@
+CLASS PGM1{
+	VAR A, B, C, D, ans;
+	GET(A);
+	GET(B);
+	GET(C);
+	GET(D);
+
+	ans = (A - B) * (C * D - 1 * 2) + (4 / 2);
+
+	PUT(ans);
+
+	
+		
+}

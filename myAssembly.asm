@@ -30,7 +30,7 @@ section .data		;used to declare constants
 ;Begin adding constants
 	lit4	DW	4
 	lit2	DW	2
-	lit10	DW	10
+	lit1	DW	1
 ; Start of user variable area    ----------------------------------------------
 
 section	.bss		;used to declare uninitialized variables
@@ -55,59 +55,53 @@ section	.bss		;used to declare uninitialized variables
 
 ;Begin adding vars
 	ans	RESW	1
-	Jane	RESW	1
-	Bob	RESW	1
-	c	RESW	1
-	b	RESW	1
-	a	RESW	1
+	D	RESW	1
+	C	RESW	1
+	B	RESW	1
+	A	RESW	1
 section .text
 _start:	nop
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [a], ax
+	mov [A], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [b], ax
+	mov [B], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [c], ax
+	mov [C], ax
 	call PrintString
 	call GetAnInteger
 	mov ax,[ReadInt]
-	mov [Bob], ax
-	call PrintString
-	call GetAnInteger
-	mov ax,[ReadInt]
-	mov [Jane], ax
-	mov ax, [Jane]
-	sub ax, [lit10]
+	mov [D], ax
+	mov ax, [A]
+	sub ax, [B]
 	mov [T1], ax
-	mov ax, [Bob]
-	add ax, [T1]
+	mov ax, [C]
+	mov bx, [D]
+	mul bx
 	mov [T2], ax
-	mov ax, [lit2]
-	mov bx, [lit4]
+	mov ax, [lit1]
+	mov bx, [lit2]
 	mul bx
 	mov [T3], ax
-	mov dx, 0
 	mov ax, [T2]
-	mov bx, [T3]
-	div bx
+	sub ax, [T3]
 	mov [T4], ax
-	mov ax, [b]
-	add ax, [c]
+	mov ax, [T1]
+	mov bx, [T4]
+	mul bx
 	mov [T5], ax
 	mov dx, 0
-	mov ax, [T4]
-	mov bx, [T5]
+	mov ax, [lit4]
+	mov bx, [lit2]
 	div bx
 	mov [T6], ax
-	mov ax, [a]
-	mov bx, [T6]
-	mul bx
+	mov ax, [T5]
+	add ax, [T6]
 	mov [T7], ax
 	mov ax, [T7]
 	mov [ans], ax
